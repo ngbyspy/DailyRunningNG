@@ -823,40 +823,40 @@ void init()
 	sprintf(tempName, "res/checking.png");
 	loadimage(&imgCHECKING, tempName);
 
-	//int timers2 = 0;
-	//int k = 0;
-	//while (k < 5446)
-	//{
-	//	keyEvent();
-	//	timers2 += getDelay();
-	//	if (timers2 >= 11)
-	//	{
-	//		for (int l = 0; l < 23; l++)
-	//		{
-	//			tempName[l] = 0;
-	//		}
-	//		timers2 = 0;
-	//		sprintf(tempName, "res/failure/%04d.jpg", k + 1);
-	//		sprintf(tempName2, "%04d.jpg", k + 1);
-	//		loadimage(&TEMP, tempName);
-	//		char relativePath[] = ".\\res\\failure";  // 相对路径
-	//		char filename[64] = { 0 };  // 要检查的文件名
-	//		sprintf(filename, "%04d.jpg", k + 1);
-	//		if (!isJpgFileExists(relativePath, filename))
-	//		{
-	//			HWND hwnd = HideWindow();
-	//			MessageBoxA(hwnd, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1110Failure", "警告", MB_OK);
-	//			exit(0);
-	//			ShowWindow(hwnd);
-	//		}
-	//		if (k == 11)puts(tempName);
-	//		BeginBatchDraw();//开始渲染
-	//		putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
-	//		drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
-	//		EndBatchDraw();//结束本次渲染
-	//		k++;
-	//	}
-	//}
+	int timers2 = 0;
+	int k = 0;
+	while (k < 5446)
+	{
+		keyEvent();
+		timers2 += getDelay();
+		if (timers2 >= 11)
+		{
+			for (int l = 0; l < 23; l++)
+			{
+				tempName[l] = 0;
+			}
+			timers2 = 0;
+			sprintf(tempName, "res/failure/%04d.jpg", k + 1);
+			sprintf(tempName2, "%04d.jpg", k + 1);
+			loadimage(&TEMP, tempName);
+			char relativePath[] = ".\\res\\failure";  // 相对路径
+			char filename[64] = { 0 };  // 要检查的文件名
+			sprintf(filename, "%04d.jpg", k + 1);
+			if (!isJpgFileExists(relativePath, filename))
+			{
+				HWND hwnd = HideWindow();
+				MessageBoxA(hwnd, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1110Failure", "警告", MB_OK);
+				exit(0);
+				ShowWindow(hwnd);
+			}
+			if (k == 11)puts(tempName);
+			BeginBatchDraw();//开始渲染
+			putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
+			drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
+			EndBatchDraw();//结束本次渲染
+			k++;
+		}
+	}
 
 	mciSendString("stop res/beginning.mp3", 0, 0, 0);
 
