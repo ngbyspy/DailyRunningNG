@@ -44,13 +44,13 @@
 		a.角色身体为一个矩形，以此实现碰撞
 		b.角色跳跃时候的身体矩形和奔跑是不同的，要另外判定
 		c.角色的腿是三角形，需要比较详细的数据，有些困难
-		*d.添加碰撞特效//暂时没加，主打一个懒
+		*d.添加碰撞特效
 	16.实现游戏的音效添加
 		a.等待优化：播放碰撞音效的时候会卡顿
 		b.优化完成
 	17.实现界面初始化，检查游戏资源完整性
 	18.实现结束页面的音画同步
-	19.显示当前分数
+	*19.显示当前分数
 */
 #include<stdio.h>
 #include<graphics.h>
@@ -60,7 +60,6 @@
 #include<conio.h>
 #include<vector>
 #include<Windows.h>
-//#pragma comment( linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"" ) // 设置入口地址
 /*以下头文件为时间函数所需*/
 #include <sys/timeb.h>
 #include <cstdio>
@@ -615,7 +614,7 @@ void updateBloodBar()
 
 	//当前总分
 	TCHAR strPresentScore[] = _T("当前总分：");
-	outtextxy(WIN_WIDTH+10, 120, strPresentScore);
+	outtextxy(WIN_WIDTH + 10, 120, strPresentScore);
 	TCHAR strScore[500];
 	_stprintf(strScore, _T("%d"), maxScore);
 	outtextxy(WIN_WIDTH + 90, 121, strScore);
@@ -1035,7 +1034,7 @@ void init()
 }
 
 //主函数
-int main(void)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pCmdLine, int nCmdShow)
 {
 	init();//启动主窗口
 
