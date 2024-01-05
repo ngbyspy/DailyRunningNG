@@ -12,67 +12,65 @@
 *							¨KC/C++¡úSDL¼ì²é¡ú·ñ
 */
 /*
-	ÀàÌìÌì¿áÅÜÏîÄ¿ÈÕÖ¾
-	1.´´½¨ÏîÄ¿
-	2.°²×°easyXÍ¼ĞÎ¿â
-	3.´´½¨ÓÎÏ·´°¿Ú
-	4.ÊµÏÖÓÎÏ·±³¾°
-		a.¶àÖØ±³¾°Í¬Ê±ÒÆ¶¯£¬ËÙ¶È²»Í¬
-		b.Á½±¶³¤¶ÈÑ­»·¹ö¶¯
-		c.äÖÈ¾
-		Óöµ½ÎÊÌâ£º±³¾°Í¼Æ¬pngÏÔÊ¾ºÚÉ«
-		½â¾ö£ºÊ¹ÓÃ×Ô¶¨ÒåµÄ¸üĞÂº¯Êı
-	5.ÊµÏÖ±¼ÅÜ
-	6.ÊµÏÖÌøÔ¾
-		Óöµ½ÎÊÌâ£ºÎŞ·¨ÌøÔ¾£¬Ô­ÒòÎ´Öª
-		½â¾ö£ºĞŞ¸ÄÅĞ¶Ï½ÓÊÕÊäÈëµÄ·½Ê½,²»ÒªÊ¹ÓÃ
-		a.¸ü¸ÄÌøÔ¾»úÖÆÎªÖØÁ¦
-		b.Ìí¼Ó¶ş¶ÎÌøÊ§°Ü£¬¸ÃÓÎÏ·Ò²²»ÊÊºÏ¶ş¶ÎÌø
-		Óöµ½ÎÊÌâ£º¿ÕÖĞµÄ¶¯×÷Í¼Æ¬²»ÏÔÊ¾£¬Ô­ÒòÎ´Öª
-		½â¾ö£ºÍ¼Æ¬¼ÓÔØµÄÃû³Æ²»¶Ô
-	7.ĞŞ¸ÄÎ¢µ÷ÌøÔ¾µÄ¸ß¶ÈµÈÊôĞÔ
-	8.ÊµÏÖÕÏ°­Îï1µÄ³öÏÖ
-	9.µ÷ÕûÕÏ°­ÎïµÄÄ£Ê½£¬ÓÃ½á¹¹ÌåºÍvector½øĞĞ·â×°
-	10.ÊµÏÖ·â×°ºóµÄÕÏ°­Îï³öÏÖ
-	11.ÊµÏÖ¿ØÖÆÌ¨´°¿ÚµÄÒş²Ø
-		a.ÊµÏÖ°´¼ü¼ì²â´¥·¢ÊÂ¼ş
-	12.ÊµÏÖÏÂ¶×
-	13.ÊµÏÖËùÓĞÕÏ°­ÎïµÄ³öÏÖ
-		a.ÓÅ»¯ÕÏ°­Îï³öÏÖµÄÆµÂÊ
-	14.Ê¹ÓÃÊ±¼äº¯ÊıÓÅ»¯Ëæ»úĞÔ
-	15.ÊµÏÖÅö×²¼ì²â
-		a.½ÇÉ«ÉíÌåÎªÒ»¸ö¾ØĞÎ£¬ÒÔ´ËÊµÏÖÅö×²
-		b.½ÇÉ«ÌøÔ¾Ê±ºòµÄÉíÌå¾ØĞÎºÍ±¼ÅÜÊÇ²»Í¬µÄ£¬ÒªÁíÍâÅĞ¶¨
-		c.½ÇÉ«µÄÍÈÊÇÈı½ÇĞÎ£¬ĞèÒª±È½ÏÏêÏ¸µÄÊı¾İ£¬ÓĞĞ©À§ÄÑ
-		*d.Ìí¼ÓÅö×²ÌØĞ§
-	16.ÊµÏÖÓÎÏ·µÄÒôĞ§Ìí¼Ó
-		a.µÈ´ıÓÅ»¯£º²¥·ÅÅö×²ÒôĞ§µÄÊ±ºò»á¿¨¶Ù
-		b.ÓÅ»¯Íê³É
-	17.ÊµÏÖ½çÃæ³õÊ¼»¯£¬¼ì²éÓÎÏ·×ÊÔ´ÍêÕûĞÔ
-	18.ÊµÏÖ½áÊøÒ³ÃæµÄÒô»­Í¬²½
-	*19.ÏÔÊ¾µ±Ç°·ÖÊı
+    ÀàÌìÌì¿áÅÜÏîÄ¿ÈÕÖ¾
+    1.´´½¨ÏîÄ¿
+    2.°²×°easyXÍ¼ĞÎ¿â
+    3.´´½¨ÓÎÏ·´°¿Ú
+    4.ÊµÏÖÓÎÏ·±³¾°
+        a.¶àÖØ±³¾°Í¬Ê±ÒÆ¶¯£¬ËÙ¶È²»Í¬
+        b.Á½±¶³¤¶ÈÑ­»·¹ö¶¯
+        c.äÖÈ¾
+        Óöµ½ÎÊÌâ£º±³¾°Í¼Æ¬pngÏÔÊ¾ºÚÉ«
+        ½â¾ö£ºÊ¹ÓÃ×Ô¶¨ÒåµÄ¸üĞÂº¯Êı
+    5.ÊµÏÖ±¼ÅÜ
+    6.ÊµÏÖÌøÔ¾
+        Óöµ½ÎÊÌâ£ºÎŞ·¨ÌøÔ¾£¬Ô­ÒòÎ´Öª
+        ½â¾ö£ºĞŞ¸ÄÅĞ¶Ï½ÓÊÕÊäÈëµÄ·½Ê½,²»ÒªÊ¹ÓÃ
+        a.¸ü¸ÄÌøÔ¾»úÖÆÎªÖØÁ¦
+        b.Ìí¼Ó¶ş¶ÎÌøÊ§°Ü£¬¸ÃÓÎÏ·Ò²²»ÊÊºÏ¶ş¶ÎÌø
+        Óöµ½ÎÊÌâ£º¿ÕÖĞµÄ¶¯×÷Í¼Æ¬²»ÏÔÊ¾£¬Ô­ÒòÎ´Öª
+        ½â¾ö£ºÍ¼Æ¬¼ÓÔØµÄÃû³Æ²»¶Ô
+    7.ĞŞ¸ÄÎ¢µ÷ÌøÔ¾µÄ¸ß¶ÈµÈÊôĞÔ
+    8.ÊµÏÖÕÏ°­Îï1µÄ³öÏÖ
+    9.µ÷ÕûÕÏ°­ÎïµÄÄ£Ê½£¬ÓÃ½á¹¹ÌåºÍvector½øĞĞ·â×°
+    10.ÊµÏÖ·â×°ºóµÄÕÏ°­Îï³öÏÖ
+    11.ÊµÏÖ¿ØÖÆÌ¨´°¿ÚµÄÒş²Ø
+        a.ÊµÏÖ°´¼ü¼ì²â´¥·¢ÊÂ¼ş
+    12.ÊµÏÖÏÂ¶×
+    13.ÊµÏÖËùÓĞÕÏ°­ÎïµÄ³öÏÖ
+        a.ÓÅ»¯ÕÏ°­Îï³öÏÖµÄÆµÂÊ
+    14.Ê¹ÓÃÊ±¼äº¯ÊıÓÅ»¯Ëæ»úĞÔ
+    15.ÊµÏÖÅö×²¼ì²â
+        a.½ÇÉ«ÉíÌåÎªÒ»¸ö¾ØĞÎ£¬ÒÔ´ËÊµÏÖÅö×²
+        b.½ÇÉ«ÌøÔ¾Ê±ºòµÄÉíÌå¾ØĞÎºÍ±¼ÅÜÊÇ²»Í¬µÄ£¬ÒªÁíÍâÅĞ¶¨
+        c.½ÇÉ«µÄÍÈÊÇÈı½ÇĞÎ£¬ĞèÒª±È½ÏÏêÏ¸µÄÊı¾İ£¬ÓĞĞ©À§ÄÑ
+        *d.Ìí¼ÓÅö×²ÌØĞ§//ÔİÊ±Ã»¼Ó£¬Ö÷´òÒ»¸öÀÁ
+    16.ÊµÏÖÓÎÏ·µÄÒôĞ§Ìí¼Ó
+        a.µÈ´ıÓÅ»¯£º²¥·ÅÅö×²ÒôĞ§µÄÊ±ºò»á¿¨¶Ù
+        b.ÓÅ»¯Íê³É
+    17.ÊµÏÖ½çÃæ³õÊ¼»¯£¬¼ì²éÓÎÏ·×ÊÔ´ÍêÕûĞÔ
+    18.ÊµÏÖ½áÊøÒ³ÃæµÄÒô»­Í¬²½
+    19.ÏÔÊ¾µ±Ç°·ÖÊı
 */
-#include<stdio.h>
+#include<cstdio>
 #include<graphics.h>
 #include"tools.h"
 #include"Check.h"
 #include"checkfiles.h"
-#include<conio.h>
 #include<vector>
-#include<Windows.h>
+//#pragma comment( linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"" ) // ÉèÖÃÈë¿ÚµØÖ·
 /*ÒÔÏÂÍ·ÎÄ¼şÎªÊ±¼äº¯ÊıËùĞè*/
 #include <sys/timeb.h>
-#include <cstdio>
-#include <time.h>
+#include <ctime>
 #include <string>
 /*ÒÔÉÏÍ·ÎÄ¼şÎªÊ±¼äº¯ÊıËùĞè*/
 
-using namespace std;//ÉêÇëÃüÃû¿Õ¼ä	
+using namespace std;//ÉêÇëÃüÃû¿Õ¼ä
 
 #define WIN_WIDTH 1012
 #define WIN_HEIGHT 396
 #define OBSTACLE_COUNT 10
-#define RandomNumbersMax 100+1
+#define RandomNumbersMax (100+1)
 
 IMAGE imgBackgroud[4];//È«¾Ö±äÁ¿´¢´æ±³¾°Í¼
 int bgX[4];//±³¾°µÄ×ø±ê
@@ -99,49 +97,49 @@ int fuNumAddfutNum = 43;//Ü½ÄşÄÈ±¼ÅÜºÍÌøÔ¾µÄ×ÜÕÕÆ¬Êı
 *  x1 y1 x2 y2 x3 y3
 */
 int heroLegsL[43][6] = {
-{131,103,154,129,96,160},
-{133,89,156,117,74,157},
-{141,59,147,148,63,138},
-{138,64,158,158,60,130},
-{139,63,162,150,64,119},
-{138,64,167,152,64,115},
-{113,83,160,160,76,103},
-{133,77,158,160,70,108},
-{108,79,148,119,130,159},
-{115,85,146,127,110,153},
-{127,93,153,120,90,154},
-{137,64,164,119,68,150},
-{144,51,159,148,62,126},
-{144,55,160,155,61,122},
-{147,51,158,159,62,115},
-{140,58,155,158,74,107},
-{140,72,147,168,83,120},
-{144,91,126,165,93,125},
-{131,117,144,138,98,166},
-{131,116,143,139,101,168},
-{124,100,141,124,87,172},
-{111,106,135,127,58,170},
-{111,106,131,128,58,170},
-{117,106,140,124,61,167},
-{144,115,112,161,63,164},
-{152,109,114,161,61,165},
-{151,105,122,166,66,158},
-{154,105,124,164,66,158},
-{149,109,134,165,68,155},
-{148,110,133,166,68,156},
-{14,109,150,164,78,148},
-{149,108,152,164,82,142},
-{147,110,157,167,89,142},
-{143,114,157,167,90,142},
-{140,106,155,166,93,138},
-{139,108,156,161,93,139},
-{128,100,152,171,95,145},
-{123,105,148,178,98,155},
-{123,106,152,177,97,153},
-{112,97,135,116,116,179},
-{144,124,142,167,85,184},
-{142,124,121,158,86,159},
-{128,113,144,136,92,156}
+        {131,103,154,129,96,160},
+        {133,89,156,117,74,157},
+        {141,59,147,148,63,138},
+        {138,64,158,158,60,130},
+        {139,63,162,150,64,119},
+        {138,64,167,152,64,115},
+        {113,83,160,160,76,103},
+        {133,77,158,160,70,108},
+        {108,79,148,119,130,159},
+        {115,85,146,127,110,153},
+        {127,93,153,120,90,154},
+        {137,64,164,119,68,150},
+        {144,51,159,148,62,126},
+        {144,55,160,155,61,122},
+        {147,51,158,159,62,115},
+        {140,58,155,158,74,107},
+        {140,72,147,168,83,120},
+        {144,91,126,165,93,125},
+        {131,117,144,138,98,166},
+        {131,116,143,139,101,168},
+        {124,100,141,124,87,172},
+        {111,106,135,127,58,170},
+        {111,106,131,128,58,170},
+        {117,106,140,124,61,167},
+        {144,115,112,161,63,164},
+        {152,109,114,161,61,165},
+        {151,105,122,166,66,158},
+        {154,105,124,164,66,158},
+        {149,109,134,165,68,155},
+        {148,110,133,166,68,156},
+        {14,109,150,164,78,148},
+        {149,108,152,164,82,142},
+        {147,110,157,167,89,142},
+        {143,114,157,167,90,142},
+        {140,106,155,166,93,138},
+        {139,108,156,161,93,139},
+        {128,100,152,171,95,145},
+        {123,105,148,178,98,155},
+        {123,106,152,177,97,153},
+        {112,97,135,116,116,179},
+        {144,124,142,167,85,184},
+        {142,124,121,158,86,159},
+        {128,113,144,136,92,156}
 };//½ÇÉ«ÍÈ²¿µÄÏà¶ÔÎ»ÖÃ
 
 IMAGE imgHeroSquat[100];//½ÇÉ«ÏÂ¶×Í¼Æ¬
@@ -169,14 +167,14 @@ int ReadMax;
 
 typedef enum
 {
-	TORTOISE,//ÎÚ¹ê£¬0
-	LION,//Ê¨×Ó£¬1
-	ROLLINGTORT,//Ğı×ªµÄÎÚ¹ê£¬2
-	HOOK1,//3
-	HOOK2,//4
-	//HOOK3,//5
-	//HOOK4,//6
-	OBSTACLE_TYPE_COUNT //ÕâÊÇÒ»ÖÖ±ß½çÅĞ¶Ï£¬·ÅÔÚ×îºóÒ»¸ö£¬Ëü¶ÔÓ¦µÄÊı¸ÕºÃÊÇÕÏ°­ÎïµÄÀàĞÍ¸öÊı
+    TORTOISE,//ÎÚ¹ê£¬0
+    LION,//Ê¨×Ó£¬1
+    ROLLINGTORT,//Ğı×ªµÄÎÚ¹ê£¬2
+    HOOK1,//3
+    HOOK2,//4
+    //HOOK3,//5
+    //HOOK4,//6
+    OBSTACLE_TYPE_COUNT //ÕâÊÇÒ»ÖÖ±ß½çÅĞ¶Ï£¬·ÅÔÚ×îºóÒ»¸ö£¬Ëü¶ÔÓ¦µÄÊı¸ÕºÃÊÇÕÏ°­ÎïµÄÀàĞÍ¸öÊı
 }obstacle_type;
 
 //´æ·ÅËùÓĞÕÏ°­ÎïµÄÍ¼Æ¬
@@ -184,15 +182,15 @@ vector<vector<IMAGE>> obstacleImgs; //Ïàµ±ÓÚCÓïÑÔµÄ IMAGE obstacleImgs[][];ÓÅµãÊ
 
 typedef struct obstacle
 {
-	obstacle_type type;//ÕÏ°­ÎïµÄÀàĞÍ£¬¼¸ºÅÕÏ°­Îï
-	int imgIndex;//µ±Ç°ÏÔÊ¾µÄÍ¼Æ¬ĞòºÅ
-	int x, y;//ÕÏ°­ÎïµÄ×ø±ê
-	int speed;//ÕÏ°­ÎïµÄËÙ¶È
-	int power;//ÅöÒ»ÏÂÕÏ°­Îï»áÔì³É¶àÉÙÉËº¦
-	int score;
-	bool ifExist;//ÊÇ·ñ´æÔÚ
-	bool ifhited;//ÊÇ¶¼Åö×²
-	bool ifpassed;//ÊÇ·ñÍ¨¹ı
+    obstacle_type type;//ÕÏ°­ÎïµÄÀàĞÍ£¬¼¸ºÅÕÏ°­Îï
+    int imgIndex;//µ±Ç°ÏÔÊ¾µÄÍ¼Æ¬ĞòºÅ
+    int x, y;//ÕÏ°­ÎïµÄ×ø±ê
+    int speed;//ÕÏ°­ÎïµÄËÙ¶È
+    int power;//ÅöÒ»ÏÂÕÏ°­Îï»áÔì³É¶àÉÙÉËº¦
+    int score;
+    bool ifExist;//ÊÇ·ñ´æÔÚ
+    bool ifhited;//ÊÇ¶¼Åö×²
+    bool ifpassed;//ÊÇ·ñÍ¨¹ı
 }obstacle_t;
 
 obstacle_t obstacles[OBSTACLE_COUNT];
@@ -203,863 +201,755 @@ obstacle_t obstacles[OBSTACLE_COUNT];
 //Ê±¼äº¯Êı£¬»ñÈ¡Ê±¼äµÄ×îºóÁ½Î»£¬ºÁÃë¼¶£¬´ó´óÔö¼ÓÁËËæ»úĞÔ
 int time_interval()
 {
-	struct timeb tv {};
-	struct tm* t;
+    struct timeb tv {};
+    struct tm* t;
 
-	ftime(&tv);
+    ftime(&tv);
 
-	time_t now = tv.time;
-	t = localtime(&now);
-	if (t == nullptr) {
-		perror("localtime");
-		return -1;
-	}
-
-	//printf("time_now: %d-%d-%d %d:%d:%d.%d\n", 1900+t->tm_year, 1+t->tm_mon, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec, tv.millitm);
-	return tv.millitm % 100;
-}
-
-//Òş²Ø¿ØÖÆÌ¨µÄº¯Êı
-void HideConsole()
-{
-	HWND hwnd = GetForegroundWindow();
-	if (hwnd)
-	{
-		ShowWindow(hwnd, SW_HIDE);
-	}
-}
-//Òş²Ø´°¿Ú
-HWND HideWindow()
-{
-	HWND hwnd = GetForegroundWindow();
-	if (hwnd)
-	{
-		ShowWindow(hwnd, SW_HIDE);
-	}
-	return hwnd;
-}
-//ÏÔÊ¾´°¿Ú
-void ShowWindow(HWND hwnd)
-{
-	if (hwnd)
-	{
-		ShowWindow(hwnd, SW_RESTORE);
-		SetForegroundWindow(hwnd);
-	}
+    time_t now = tv.time;
+    t = localtime(&now);
+    if (t == nullptr) {
+        perror("localtime");
+        return -1;
+    }
+    return tv.millitm % 100;
 }
 
 //Éú³ÉÕÏ°­Îï£¬Ğ´Õâ¸öº¯ÊıµÄÊ±ºò¶ÔÕû¸ö´úÂë¶¼ÒÑ¾­±È½ÏÊìÏ¤ÁË£¬Ã»ÔõÃ´Ğ´×¢ÊÍ
 void createObstacle()
 {
-	int i;
-	for (i = 0; i < OBSTACLE_COUNT; i++)
-	{
-		if (obstacles[i].ifExist == false)
-		{
-			break;
-		}
-	}
-	if (i >= OBSTACLE_COUNT) return;
+    int i;
+    for (i = 0; i < OBSTACLE_COUNT; i++)
+    {
+        if (!obstacles[i].ifExist)
+        {
+            break;
+        }
+    }
+    if (i >= OBSTACLE_COUNT) return;
 
-	obstacles[i].ifExist = true;
-	obstacles[i].ifhited = false;
-	obstacles[i].ifpassed = false;
-	obstacles[i].imgIndex = 0;
-	if (randomIndex >= RandomNumbersMax) randomIndex = 0;
-	random[randomIndex] = time_interval();
-	obstacles[i].type = (obstacle_type)(random[randomIndex++] % (OBSTACLE_TYPE_COUNT - 0));//°Ñ¶à¸öÖù×Ó·Åµ½Ò»Æğ£¬²»È»Öù×ÓµÄ³öÏÖ¸ÅÂÊ»á¹ı´ó
-	obstacles[i].x = WIN_WIDTH;
-	obstacles[i].y = 360 - obstacleImgs[obstacles[i].type][0].getheight();
-	if (obstacles[i].type == TORTOISE)
-	{
-		obstacles[i].speed = 1;
-		obstacles[i].power = 5 + level * 5;
-		obstacles[i].score = 5;
-	}
-	else if (obstacles[i].type == LION)
-	{
-		obstacles[i].speed = 4;
-		obstacles[i].power = 15 + level * 5;
-		obstacles[i].score = 11;
-	}
-	else if (obstacles[i].type == ROLLINGTORT)
-	{
-		obstacles[i].speed = 2;
-		obstacles[i].power = 6 + level * 5;
-		obstacles[i].score = 6;
-	}
-	else if (obstacles[i].type >= HOOK1 && obstacles[i].type <= HOOK2)
-	{
-		obstacles[i].speed = 0;
-		obstacles[i].power = 21 + level * 5;
-		obstacles[i].y = 0;
-		obstacles[i].score = 12;
-	}
+    obstacles[i].ifExist = true;
+    obstacles[i].ifhited = false;
+    obstacles[i].ifpassed = false;
+    obstacles[i].imgIndex = 0;
+    if (randomIndex >= RandomNumbersMax) randomIndex = 0;
+    random[randomIndex] = time_interval();
+    obstacles[i].type = (obstacle_type)(random[randomIndex++] % (OBSTACLE_TYPE_COUNT - 0));//°Ñ¶à¸öÖù×Ó·Åµ½Ò»Æğ£¬²»È»Öù×ÓµÄ³öÏÖ¸ÅÂÊ»á¹ı´ó
+    obstacles[i].x = WIN_WIDTH;
+    obstacles[i].y = 360 - obstacleImgs[obstacles[i].type][0].getheight();
+    if (obstacles[i].type == TORTOISE)
+    {
+        obstacles[i].speed = 1;
+        obstacles[i].power = 5 + level * 5;
+        obstacles[i].score = 5;
+    }
+    else if (obstacles[i].type == LION)
+    {
+        obstacles[i].speed = 4;
+        obstacles[i].power = 15 + level * 5;
+        obstacles[i].score = 11;
+    }
+    else if (obstacles[i].type == ROLLINGTORT)
+    {
+        obstacles[i].speed = 2;
+        obstacles[i].power = 6 + level * 5;
+        obstacles[i].score = 6;
+    }
+    else if (obstacles[i].type >= HOOK1 && obstacles[i].type <= HOOK2)
+    {
+        obstacles[i].speed = 0;
+        obstacles[i].power = 21 + level * 5;
+        obstacles[i].y = 0;
+        obstacles[i].score = 12;
+    }
 }
 
 //Åö×²¼ì²â
 void checkHit()
 {
-	for (int i = 0; i < OBSTACLE_COUNT; i++)
-	{
-		if (obstacles[i].ifExist && !obstacles[i].ifhited)
-		{
-			MyTriangle HeroLegs;
-			MyRectangle HeroBody, ObstacleBody;
-			int a1x, a1y, a2x, a2y;//½ÇÉ«µÄÉíÌå¾ØĞÎ×ø±êĞÅÏ¢
-			if (!ifHeroSquating && !isHeroJumping)//±¼ÅÜµÄ¼ì²â
-			{
-				HeroBody.x = heroX + 119;
-				HeroBody.y = heroY + 38;
-				a2x = heroX + imgHeros[i].getwidth() - 50;
-				a2y = heroY + imgHeros[i].getheight() - 75;
-				HeroBody.width = a2x - HeroBody.x;
-				HeroBody.height = a2y - HeroBody.y;
-				//ÒÔÉÏÊÇÉíÌå²¿·ÖµÄ¾ØĞÎ¼ÆËã
-				//ÓÉÓÚÈı½ÇµÄ×ø±ê¿ÉÒÔÖ±½ÓÊ¹ÓÃheroXºÍheroYµÄÏà¶ÔÎ»ÖÃ£¬ÎÒÃÇÖ±½ÓÓÃ¾ÍºÃ
+    for (int i = 0; i < OBSTACLE_COUNT; i++)
+    {
+        if (obstacles[i].ifExist && !obstacles[i].ifhited)
+        {
+            MyTriangle HeroLegs;
+            MyRectangle HeroBody, ObstacleBody;
+            int a2x, a2y;//½ÇÉ«µÄÉíÌå¾ØĞÎ×ø±êĞÅÏ¢
+            if (!ifHeroSquating && !isHeroJumping)//±¼ÅÜµÄ¼ì²â
+            {
+                HeroBody.x = heroX + 119;
+                HeroBody.y = heroY + 38;
+                heroX + imgHeros[i].getwidth() - 50;
+                heroY + imgHeros[i].getheight() - 75;
+                HeroBody.width = a2x - HeroBody.x;
+                HeroBody.height = a2y - HeroBody.y;
+                //ÒÔÉÏÊÇÉíÌå²¿·ÖµÄ¾ØĞÎ¼ÆËã
+                //ÓÉÓÚÈı½ÇµÄ×ø±ê¿ÉÒÔÖ±½ÓÊ¹ÓÃheroXºÍheroYµÄÏà¶ÔÎ»ÖÃ£¬ÎÒÃÇÖ±½ÓÓÃ¾ÍºÃ
 
-				HeroLegs.x1 = heroX + heroLegsL[heroIndex][0];
-				HeroLegs.y1 = heroY + heroLegsL[heroIndex][1];
-				HeroLegs.x2 = heroX + heroLegsL[heroIndex][2];
-				HeroLegs.y2 = heroY + heroLegsL[heroIndex][3];
-				HeroLegs.x3 = heroX + heroLegsL[heroIndex][4];
-				HeroLegs.y3 = heroY + heroLegsL[heroIndex][5];
+                HeroLegs.x1 = heroX + heroLegsL[heroIndex][0];
+                HeroLegs.y1 = heroY + heroLegsL[heroIndex][1];
+                HeroLegs.x2 = heroX + heroLegsL[heroIndex][2];
+                HeroLegs.y2 = heroY + heroLegsL[heroIndex][3];
+                HeroLegs.x3 = heroX + heroLegsL[heroIndex][4];
+                HeroLegs.y3 = heroY + heroLegsL[heroIndex][5];
 
-			}
-			if ((isHeroJumping || !isHeroGrounded) && !ifHeroSquating)//ÔÚÌø
-			{
-				HeroBody.x = heroX + 91;
-				HeroBody.y = heroY + 26;
-				a2x = heroX + imgHeros[i].getwidth() - 41;
-				a2y = heroY + imgHeros[i].getheight() - 74;
-				HeroBody.width = a2x - HeroBody.x;
-				HeroBody.height = a2y - HeroBody.y;
+            }
+            if ((isHeroJumping || !isHeroGrounded) && !ifHeroSquating)//ÔÚÌø
+            {
+                HeroBody.x = heroX + 91;
+                HeroBody.y = heroY + 26;
+                heroX + imgHeros[i].getwidth() - 41;
+                heroY + imgHeros[i].getheight() - 74;
+                HeroBody.width = a2x - HeroBody.x;
+                HeroBody.height = a2y - HeroBody.y;
 
-				HeroLegs.x1 = heroX + heroLegsL[heroIndex][0];
-				HeroLegs.y1 = heroY + heroLegsL[heroIndex][1];
-				HeroLegs.x2 = heroX + heroLegsL[heroIndex][2];
-				HeroLegs.y2 = heroY + heroLegsL[heroIndex][3];
-				HeroLegs.x3 = heroX + heroLegsL[heroIndex][4];
-				HeroLegs.y3 = heroY + heroLegsL[heroIndex][5];
-			}
-			if (ifHeroSquating)//°´ÁËS¼ü
-			{
-				HeroBody.x = squatX + 5;
-				HeroBody.y = squatY + 3;
-				a2x = squatX + imgHeroSquat[squatImgNumbers - 1].getwidth() - 10;
-				a2y = squatY + imgHeroSquat[squatImgNumbers - 1].getheight() - 6;
-				HeroBody.width = a2x - HeroBody.x;
-				HeroBody.height = a2y - HeroBody.y;
-			}
-			//ÕÏ°­ÎïµÄ¾ØĞÎ×ø±êĞÅÏ¢
-			IMAGE img = obstacleImgs[obstacles[i].type][obstacles[i].imgIndex];
-			int b1x = obstacles[i].x + 5;
-			int b1y = obstacles[i].y + 5;
-			int b2x = obstacles[i].x + img.getwidth() - 5;
-			int b2y = obstacles[i].y + img.getheight();
-			ObstacleBody.x = b1x;
-			ObstacleBody.y = b1y;
-			ObstacleBody.width = b2x - b1x;
-			ObstacleBody.height = b2y - b1y;
+                HeroLegs.x1 = heroX + heroLegsL[heroIndex][0];
+                HeroLegs.y1 = heroY + heroLegsL[heroIndex][1];
+                HeroLegs.x2 = heroX + heroLegsL[heroIndex][2];
+                HeroLegs.y2 = heroY + heroLegsL[heroIndex][3];
+                HeroLegs.x3 = heroX + heroLegsL[heroIndex][4];
+                HeroLegs.y3 = heroY + heroLegsL[heroIndex][5];
+            }
+            if (ifHeroSquating)//°´ÁËS¼ü
+            {
+                HeroBody.x = squatX + 5;
+                HeroBody.y = squatY + 3;
+                squatX + imgHeroSquat[squatImgNumbers - 1].getwidth() - 10;
+                squatY + imgHeroSquat[squatImgNumbers - 1].getheight() - 6;
+                HeroBody.width = a2x - HeroBody.x;
+                HeroBody.height = a2y - HeroBody.y;
+            }
+            //ÕÏ°­ÎïµÄ¾ØĞÎ×ø±êĞÅÏ¢
+            IMAGE img = obstacleImgs[obstacles[i].type][obstacles[i].imgIndex];
+            int b1x = obstacles[i].x + 5;
+            int b1y = obstacles[i].y + 5;
+            int b2x = obstacles[i].x + img.getwidth() - 5;
+            int b2y = obstacles[i].y + img.getheight();
+            ObstacleBody.x = b1x;
+            ObstacleBody.y = b1y;
+            ObstacleBody.width = b2x - b1x;
+            ObstacleBody.height = b2y - b1y;
 
-			if (checkRectangleCollision(HeroBody, ObstacleBody))//¼ÇµÃÌí¼Ó¡°»òÕßÍÈ²¿Åö×²¡±
-			{
-				HP -= obstacles[i].power;
-				obstacles[i].ifhited = true;
-				if (HP > 0)
-				{
-					mciSendString("play res/hit.mp3", 0, 0, 0);
-				}
-			}
-			if (!ifHeroSquating && checkTriangleRectangleCollision(HeroLegs, ObstacleBody))
-			{
-				HP -= obstacles[i].power;
-				obstacles[i].ifhited = true;
-				if (HP > 0)
-				{
-					mciSendString("play res/hit.mp3", 0, 0, 0);
-				}
-			}
-		}
-		/*if (obstacles[i].ifExist && obstacles[i].ifhited)
-		{
-			putimagePNG2()
-		}*/
-	}
+            if (checkRectangleCollision(HeroBody, ObstacleBody))//¼ÇµÃÌí¼Ó¡°»òÕßÍÈ²¿Åö×²¡±
+            {
+                HP -= obstacles[i].power;
+                obstacles[i].ifhited = true;
+                if (HP > 0)
+                {
+                    mciSendString("play res/hit.mp3", nullptr, 0, nullptr);
+                }
+            }
+            if (!ifHeroSquating && checkTriangleRectangleCollision(HeroLegs, ObstacleBody))
+            {
+                HP -= obstacles[i].power;
+                obstacles[i].ifhited = true;
+                if (HP > 0)
+                {
+                    mciSendString("play res/hit.mp3", nullptr, 0, nullptr);
+                }
+            }
+        }
+    }
 }
 
 //¼Ó·Ö¼ì²â
 void checkScore()
 {
-	for (int i = 0; i < OBSTACLE_COUNT; i++)
-	{
-		if (obstacles[i].ifExist && !obstacles[i].ifpassed && !obstacles[i].ifhited)
-		{
-			if (obstacles[i].x + obstacleImgs[obstacles[i].type][0].getwidth() < heroX)
-			{
-				SCORE += obstacles[i].score;
-				maxScore += obstacles[i].score;
-				obstacles[i].ifpassed = true;
-				//printf("%d\n", SCORE);
-			}
-		}
-		if (SCORE >= 100)
-		{
-			SCORE = 0;
-			level++;
-			ifAdded = false;
-		}
-		if (level >= 0 && !ifAdded)
-		{
-			for (int j = 0; j < 3; j++)
-			{
-				EnemyFre0 -= (level * 3);
-				if (EnemyFre0 <= 25) EnemyFre0 = 25;
-				EnemyFre1 -= (level * 2);
-				if (EnemyFre1 < 30) EnemyFre1 = 30;
-				bgflySpeed[j] += level;
-			}
-			ifAdded = true;
-		}
-	}
+    for (auto& obstacle : obstacles)
+    {
+        if (obstacle.ifExist && !obstacle.ifpassed && !obstacle.ifhited)
+        {
+            if (obstacle.x + obstacleImgs[obstacle.type][0].getwidth() < heroX)
+            {
+                SCORE += obstacle.score;
+                maxScore += obstacle.score;
+                obstacle.ifpassed = true;
+            }
+        }
+        if (SCORE >= 100)
+        {
+            SCORE = 0;
+            level++;
+            ifAdded = false;
+        }
+        if (level >= 0 && !ifAdded)
+        {
+            for (int& j : bgflySpeed)
+            {
+                EnemyFre0 -= (level * 3);
+                if (EnemyFre0 <= 25) EnemyFre0 = 25;
+                EnemyFre1 -= (level * 2);
+                if (EnemyFre1 < 30) EnemyFre1 = 30;
+                j += level;
+            }
+            ifAdded = true;
+        }
+    }
 }
 
 //äÖÈ¾ÓÎÏ·±³¾°
 void updateBackGroud()
 {
-	putimagePNG2(bgX[0], 0, &imgBackgroud[0]);
-	putimagePNG2(bgX[1], 119, &imgBackgroud[1]);
-	putimagePNG2(bgX[2], 330, &imgBackgroud[2]);
-	putimagePNG2(bgX[3], 0, &imgBackgroud[3]);
+    putimagePNG2(bgX[0], 0, &imgBackgroud[0]);
+    putimagePNG2(bgX[1], 119, &imgBackgroud[1]);
+    putimagePNG2(bgX[2], 330, &imgBackgroud[2]);
+    putimagePNG2(bgX[3], 0, &imgBackgroud[3]);
 }
 
 //Íæ¼ÒÒ»µÄÌøÔ¾
 void hero1jump()
 {
-	if (isHeroGrounded)
-	{
-		isHeroJumping = true;
-		isHeroGrounded = false;        // ´ÓµØÃæÍÑÀë
-		jumpSpeed = JUMP_INIT_SPEED;   // ÉèÖÃ³õÊ¼ÌøÔ¾ËÙ¶È
-		heroIndex = 18;//Ü½ÄşÄÈµÄ³õÊ¼»¯
-		//heroIndex = 9;//Õı³£½ÇÉ«µÄ³õÊ¼»¯
-	}
-	/*if (isHeroGrounded || (!isHeroJumping && canDoubleJump)) // ÔÊĞí¶ş¶ÎÌø
-	{
-		isHeroJumping = true;
-		isHeroGrounded = false;
-		jumpSpeed = JUMP_INIT_SPEED; // ÉèÖÃ³õÊ¼ÌøÔ¾ËÙ¶È
-
-		// Èç¹ûÔÚ¿ÕÖĞÖ´ĞĞjump£¬Ôò±íÊ¾½øĞĞÁË¶ş¶ÎÌø
-		if (!isHeroGrounded && !canDoubleJump)
-			canDoubleJump = false; // Ê¹ÓÃ¶ş¶ÎÌøºó½«ÆäÉèÖÃÎª²»¿ÉÓÃ
-	}*///¶ş¶ÎÌø²âÊÔ
+    if (isHeroGrounded)
+    {
+        isHeroJumping = true;
+        isHeroGrounded = false;        // ´ÓµØÃæÍÑÀë
+        jumpSpeed = JUMP_INIT_SPEED;   // ÉèÖÃ³õÊ¼ÌøÔ¾ËÙ¶È
+        heroIndex = 18;//Ü½ÄşÄÈµÄ³õÊ¼»¯
+    }
 }
 
 //ÏÂ¶×
 void squat()
 {
-	ifHeroSquating = true;
-	heroIndex = 0;
+    ifHeroSquating = true;
+    heroIndex = 0;
 }
 
 //¼ì²âÍæ¼ÒÊÇ·ñĞèÒªÖĞÍ¾ÍË³ö
 void ifWannaExit()
 {
-	HWND hwnd = HideWindow();
-	if (HP > 0)
-	{
-		if (IDYES == MessageBoxA(hwnd, "ÓÎÏ·Î´±£´æ£¬ÊÇ·ñÍË³ö£¿", "×¢Òâ", MB_YESNO))
-		{
-			exit(0);
-		}
-	}
-	else
-	{
-		if (IDYES == MessageBoxA(hwnd, "Êı¾İÒÑ±£´æ£¬ÊÇ·ñÁ¢¼´ÍË³ö£¿", "DailyRunningNG", MB_YESNO))
-		{
-			exit(0);
-		}
-	}
-	ShowWindow(hwnd);
+    if (HP > 0)
+    {
+        if (IDYES == MessageBoxA(nullptr, "The game is not saved, is it quitting?", "pay attention", MB_YESNO))
+        {
+            exit(0);
+        }
+    }
+    else
+    {
+        if (IDYES == MessageBoxA(nullptr, "The data has been saved, is it immediately exited?", "DailyRunningNG", MB_YESNO))
+        {
+            exit(0);
+        }
+    }
 }
 
 //½ÓÊÕÊäÈë
 void keyEvent()
 {
-	//Íæ¼ÒÒ»µÄ°´¼üÊÂ¼ş
-	bool keyWPressed = (GetAsyncKeyState('W') & 0x8000) != 0;  // Íæ¼ÒÒ»ÉÏÒÆ
-	bool keyAPressed = (GetAsyncKeyState('A') & 0x8000) != 0;  // Íæ¼ÒÒ»×óÒÆ
-	bool keySPressed = (GetAsyncKeyState('S') & 0x8000) != 0;  // Íæ¼ÒÒ»ÏÂÒÆ
-	bool keyDPressed = (GetAsyncKeyState('D') & 0x8000) != 0;  // Íæ¼ÒÒ»ÓÒÒÆ
+    //Íæ¼ÒÒ»µÄ°´¼üÊÂ¼ş
+    bool keyWPressed = (GetAsyncKeyState('W') & 0x8000) != 0;  // Íæ¼ÒÒ»ÉÏÒÆ
+    bool keyAPressed = (GetAsyncKeyState('A') & 0x8000) != 0;  // Íæ¼ÒÒ»×óÒÆ
+    bool keySPressed = (GetAsyncKeyState('S') & 0x8000) != 0;  // Íæ¼ÒÒ»ÏÂÒÆ
+    bool keyDPressed = (GetAsyncKeyState('D') & 0x8000) != 0;  // Íæ¼ÒÒ»ÓÒÒÆ
 
-	//ÎªÍæ¼Ò¶ş²âÊÔ×ö×¼±¸
-	//bool keyUpPressed = (GetAsyncKeyState(VK_UP) & 0x8000) != 0;     // Íæ¼Ò¶şÉÏÒÆ
-	//bool keyLeftPressed = (GetAsyncKeyState(VK_LEFT) & 0x8000) != 0;   // Íæ¼Ò¶ş×óÒÆ
-	//bool keyDownPressed = (GetAsyncKeyState(VK_DOWN) & 0x8000) != 0;   // Íæ¼Ò¶şÏÂÒÆ
-	//bool keyRightPressed = (GetAsyncKeyState(VK_RIGHT) & 0x8000) != 0;  // Íæ¼Ò¶şÓÒÒÆ
+    //ÆäËû°´¼ü
+    bool keyEscPressed = (GetAsyncKeyState(VK_ESCAPE) & 0x8000) != 0;//EscÍË³ö¼ü
+    bool keyPPressed = (GetAsyncKeyState('P') & 0x8000) != 0;
 
-	//ÆäËû°´¼ü
-	bool keyEscPressed = (GetAsyncKeyState(VK_ESCAPE) & 0x8000) != 0;//EscÍË³ö¼ü
-	bool keyPPressed = (GetAsyncKeyState('P') & 0x8000) != 0;
+    // ÅĞ¶ÏÊäÈë
+    if (keyWPressed && !isHeroJumping && !keySProcessed)
+    {
+        hero1jump();
+        ifupdate = true;//¿ÉÒÔË¢ĞÂÁË
+    }
+    if (keyEscPressed)
+    {
+        ifWannaExit();
+    }
+    if (keyAPressed)
+    {
+        heroLeft = true;
+    }
+    if (keyDPressed)
+    {
+        heroRight = true;
+    }
 
-	// ÅĞ¶ÏÊäÈë
-	if (keyWPressed && !isHeroJumping && !keySProcessed)
-	{
-		hero1jump();
-		ifupdate = true;//¿ÉÒÔË¢ĞÂÁË
-	}
-	if (keyEscPressed)
-	{
-		ifWannaExit();
-	}
-	if (keyAPressed)
-	{
-		heroLeft = true;
-	}
-	if (keyDPressed)
-	{
-		heroRight = true;
-	}
+    //ÏÂÃæÊÇ¼ì²âP¼üµÄ°´ÏÂ£¬ÓÉÓÚGetAsyncKeyStateº¯Êı½ö¼ì²âµ¥´Î°´¼ü×´Ì¬£¬ËùÒÔ°´ÏÂºÍµ¯Æğ¶¼ÊÇtrue£¬ËùÒÔÒª¼ÓÒ»¸ökeyProcessedÀ´ÅĞ¶Ï°´ÏÂºÍµ¯Æğ
+    if (keyPPressed && !keyPProcessed)
+    {
+        // µ±P¼ü±»°´ÏÂÇÒÖ®Ç°Î´´¦ÀíÊ±£¬ÇĞ»»ÔİÍ£×´Ì¬
+        ifPause = !ifPause;
+        keyPProcessed = true;  // ±ê¼ÇÎªÒÑ´¦Àí
+    }
+    else if (!keyPPressed && keyPProcessed)
+    {
+        // µ±P¼ü±»ÊÍ·ÅÇÒÖ®Ç°ÒÑ´¦ÀíÊ±£¬ÖØÖÃ´¦Àí±êÖ¾
+        keyPProcessed = false;
+    }
 
-	//ÏÂÃæÊÇ¼ì²âP¼üµÄ°´ÏÂ£¬ÓÉÓÚGetAsyncKeyStateº¯Êı½ö¼ì²âµ¥´Î°´¼ü×´Ì¬£¬ËùÒÔ°´ÏÂºÍµ¯Æğ¶¼ÊÇtrue£¬ËùÒÔÒª¼ÓÒ»¸ökeyProcessedÀ´ÅĞ¶Ï°´ÏÂºÍµ¯Æğ
-	if (keyPPressed && !keyPProcessed)
-	{
-		// µ±P¼ü±»°´ÏÂÇÒÖ®Ç°Î´´¦ÀíÊ±£¬ÇĞ»»ÔİÍ£×´Ì¬
-		ifPause = !ifPause;
-		keyPProcessed = true;  // ±ê¼ÇÎªÒÑ´¦Àí
-	}
-	else if (!keyPPressed && keyPProcessed)
-	{
-		// µ±P¼ü±»ÊÍ·ÅÇÒÖ®Ç°ÒÑ´¦ÀíÊ±£¬ÖØÖÃ´¦Àí±êÖ¾
-		keyPProcessed = false;
-	}
-
-	//ÏÂÃæÊÇ¼ì²âS¼üµÄ°´ÏÂ£¬ÀíÓÉÓëP¼üÒ»Ñù
-	if (keySPressed && !keySProcessed)
-	{
-		// µ±P¼ü±»°´ÏÂÇÒÖ®Ç°Î´´¦ÀíÊ±£¬ÇĞ»»ÔİÍ£×´Ì¬
-		squat();
-		keySProcessed = true;  // ±ê¼ÇÎªÒÑ´¦Àí
-	}
-	else if (!keySPressed && keySProcessed)
-	{
-		// µ±P¼ü±»ÊÍ·ÅÇÒÖ®Ç°ÒÑ´¦ÀíÊ±£¬ÖØÖÃ´¦Àí±êÖ¾
-		ifHeroSquating = !ifHeroSquating;
-		keySProcessed = false;
-	}
+    //ÏÂÃæÊÇ¼ì²âS¼üµÄ°´ÏÂ£¬ÀíÓÉÓëP¼üÒ»Ñù
+    if (keySPressed && !keySProcessed)
+    {
+        // µ±P¼ü±»°´ÏÂÇÒÖ®Ç°Î´´¦ÀíÊ±£¬ÇĞ»»ÔİÍ£×´Ì¬
+        squat();
+        keySProcessed = true;  // ±ê¼ÇÎªÒÑ´¦Àí
+    }
+    else if (!keySPressed && keySProcessed)
+    {
+        // µ±P¼ü±»ÊÍ·ÅÇÒÖ®Ç°ÒÑ´¦ÀíÊ±£¬ÖØÖÃ´¦Àí±êÖ¾
+        ifHeroSquating = !ifHeroSquating;
+        keySProcessed = false;
+    }
 }
 
 //¸üĞÂµĞ·½
 void updateEnemy()
 {
-	//¸üĞÂÕÏ°­Îï
-	for (int i = 0; i < OBSTACLE_COUNT; i++)
-	{
-		if (obstacles[i].ifExist)
-		{
-			putimagePNG2(obstacles[i].x, obstacles[i].y, WIN_WIDTH,
-				&obstacleImgs[obstacles[i].type][obstacles[i].imgIndex]);
-		}
-	}
+    //¸üĞÂÕÏ°­Îï
+    for (auto& obstacle : obstacles)
+    {
+        if (obstacle.ifExist)
+        {
+            putimagePNG2(obstacle.x, obstacle.y, WIN_WIDTH, &obstacleImgs[obstacle.type][obstacle.imgIndex]);
+        }
+    }
 }
 
 //¸üĞÂ½ÇÉ«
 void updateHeros()
 {
-	if (!ifHeroSquating)
-	{
-		putimagePNG2(heroX, heroY, &imgHeros[heroIndex]);//Êä³ö½ÇÉ«µÄ±¼ÅÜºÍÌøÔ¾
-	}
-	if (ifHeroSquating)//¸´ÔÓµÄ×ø±ê¼ÆËã£¬°¦£¬²»¹ı¶×ÏÂ¾Í²»ĞèÒª¼ÆËãÈı½ÇĞÎÁË
-	{
-		if (heroIndex < squatImgNumbers - 6)
-		{
-			putimagePNG2(heroX, heroY, &imgHeros[heroIndex]);
-			putimagePNG2(heroX, heroY, &imgHeroSquat[heroIndex]);
-		}
-		else if (heroIndex < squatImgNumbers - 4)
-		{
-			putimagePNG2(heroX, heroY, &imgHeroSquat[heroIndex]);
-		}
-		else if (heroIndex < squatImgNumbers - 1)
-		{
-			int y = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
-			int x = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[squatImgNumbers - 1].getwidth() * 0.5;
-			int xChannel = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[heroIndex].getwidth() * 0.5;
-			int yChannel = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
-			putimagePNG2(x, y, &imgHeroSquat[squatImgNumbers - 1]);
-			putimagePNG2(xChannel, yChannel, &imgHeroSquat[heroIndex]);
-		}
-		else
-		{
-			int y = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
-			int x = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[heroIndex].getwidth() * 0.5;
-			putimagePNG2(x, y, &imgHeroSquat[heroIndex]);
-			squatX = x;
-			squatY = y;
-		}
-	}
+    if (!ifHeroSquating)
+    {
+        putimagePNG2(heroX, heroY, &imgHeros[heroIndex]);//Êä³ö½ÇÉ«µÄ±¼ÅÜºÍÌøÔ¾
+    }
+    if (ifHeroSquating)//¸´ÔÓµÄ×ø±ê¼ÆËã£¬°¦£¬²»¹ı¶×ÏÂ¾Í²»ĞèÒª¼ÆËãÈı½ÇĞÎÁË
+    {
+        if (heroIndex < squatImgNumbers - 6)
+        {
+            putimagePNG2(heroX, heroY, &imgHeros[heroIndex]);
+            putimagePNG2(heroX, heroY, &imgHeroSquat[heroIndex]);
+        }
+        else if (heroIndex < squatImgNumbers - 4)
+        {
+            putimagePNG2(heroX, heroY, &imgHeroSquat[heroIndex]);
+        }
+        else if (heroIndex < squatImgNumbers - 1)
+        {
+            int y = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
+            int x = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[squatImgNumbers - 1].getwidth() * 0.5;
+            int xChannel = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[heroIndex].getwidth() * 0.5;
+            int yChannel = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
+            putimagePNG2(x, y, &imgHeroSquat[squatImgNumbers - 1]);
+            putimagePNG2(xChannel, yChannel, &imgHeroSquat[heroIndex]);
+        }
+        else
+        {
+            int y = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
+            int x = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[heroIndex].getwidth() * 0.5;
+            putimagePNG2(x, y, &imgHeroSquat[heroIndex]);
+            squatX = x;
+            squatY = y;
+        }
+    }
 }
 
 //¸üĞÂÑªÌõºÍ·ÖÊıÌõ
 void updateBloodBar()
 {
-	drawBloodBar(10, 10, 200, 10, 2, BLUE, DARKGRAY, RED, HP / 100.0);//ÑªÌõ
-	drawBloodBar(10, 30, 200, 10, 2, BLUE, DARKGRAY, YELLOW, SCORE / 100.0);//·ÖÊıÌõ
+    drawBloodBar(10, 10, 200, 10, 2, BLUE, DARKGRAY, RED, HP / 100.0);//ÑªÌõ
+    drawBloodBar(10, 30, 200, 10, 2, BLUE, DARKGRAY, YELLOW, SCORE / 100.0);//·ÖÊıÌõ
 
-	//¸üĞÂ·ÖÊıÏÔÊ¾
-	setbkmode(TRANSPARENT);
-	settextcolor(BLACK);
+    //¸üĞÂ·ÖÊıÏÔÊ¾
+    setbkmode(TRANSPARENT);
+    settextcolor(BLACK);
 
-	//µ±Ç°×Ü·Ö
-	TCHAR strPresentScore[] = _T("µ±Ç°×Ü·Ö£º");
-	outtextxy(WIN_WIDTH + 10, 120, strPresentScore);
-	TCHAR strScore[500];
-	_stprintf(strScore, _T("%d"), maxScore);
-	outtextxy(WIN_WIDTH + 90, 121, strScore);
+    //µ±Ç°×Ü·Ö
+    TCHAR strScore[500];
+    _stprintf(strScore, _T("%d"), maxScore);
+    outtextxy(WIN_WIDTH + 90, 121, strScore);
 
-	//ÀúÊ·×î¸ß·Ö
-	TCHAR strHistoryMaxScore[] = _T("ÀúÊ·×î¸ß·Ö£º");
-	outtextxy(WIN_WIDTH + 10, 139, strHistoryMaxScore);
-	TCHAR strScoreRead[500];
-	_stprintf(strScoreRead, _T("%d"), ReadMax);
-	outtextxy(WIN_WIDTH + 102, 140, strScoreRead);
+    //ÀúÊ·×î¸ß·Ö
+    TCHAR strScoreRead[500];
+    _stprintf(strScoreRead, _T("%d"), ReadMax);
+    outtextxy(WIN_WIDTH + 102, 140, strScoreRead);
 
 }
 
 //ËÀÍö¼ì²â
 void checkHP()
 {
-	if (HP <= 0)
-	{
-		int grade = (maxScore >= ReadMax ? maxScore : ReadMax);
-		WriteGrade(grade);
-		mciSendString("stop res/traveling.mp3", 0, 0, 0);
+    if (HP <= 0)
+    {
+        int grade = (maxScore >= ReadMax ? maxScore : ReadMax);
+        WriteGrade(grade);
+        mciSendString("stop res/traveling.mp3", nullptr, 0, nullptr);
 
-		char name[64] = { 0 };
-		int i = 0, j = 0;
-		int timers = 0;
-		int Tmax = 15;
-		mciSendString("play res/failure.mp3", 0, 0, 0);
-		while (i < 5446)
-		{
-			keyEvent();//½ÓÊÕÊäÈëº¯Êı
-			timers += getDelay();//¼ÓÉÏµ×²ãÂß¼­»ù´¡µ¥Î»Ê±¼ä
-			if (timers >= Tmax)
-			{
-				timers = 0;
-				sprintf(name, "res/failure/%04d.jpg", i + 1);
-				j = i % 10;//j´Ó0µ½9
-				loadimage(&imgFailures[j], name);
-				putimage(0, 0, &imgFailures[j]);
-				i++;
-			}
-		}
+        char name[64] = { 0 };
+        int i = 0, j;
+        int timers = 0;
+        int Tmax = 15;
+        mciSendString("play res/failure.mp3", nullptr, 0, nullptr);
+        while (i < 5446)
+        {
+            keyEvent();//½ÓÊÕÊäÈëº¯Êı
+            timers += getDelay();//¼ÓÉÏµ×²ãÂß¼­»ù´¡µ¥Î»Ê±¼ä
+            if (timers >= Tmax)
+            {
+                timers = 0;
+                sprintf(name, "res/failure/%04d.jpg", i + 1);
+                j = i % 10;//j´Ó0µ½9
+                loadimage(&imgFailures[j], name);
+                putimage(0, 0, &imgFailures[j]);
+                i++;
+            }
+        }
 
-		mciSendString("stop res/failure.mp3", 0, 0, 0);
-		//putimage(0, 0, &imgFailures[0]);
-		ifWannaExit();
-	}
+        mciSendString("stop res/failure.mp3", nullptr, 0, nullptr);
+        ifWannaExit();
+    }
 }
 
 //¼ÆËãÏÂÒ»Ö¡Í¼Æ¬µÄÊı¾İ
 void fly()
 {
-	//±³¾°ÒÆ¶¯
-	for (int i = 0; i < 3; i++)
-	{
-		bgX[i] -= bgflySpeed[i];
-		if (bgX[i] < -WIN_WIDTH)
-			bgX[i] = 0;
-	}
+    //±³¾°ÒÆ¶¯
+    for (int i = 0; i < 3; i++)
+    {
+        bgX[i] -= bgflySpeed[i];
+        if (bgX[i] < -WIN_WIDTH)
+            bgX[i] = 0;
+    }
 
-	//Åö×²¼ì²â
-	checkHit();
+    //Åö×²¼ì²â
+    checkHit();
 
-	//Ü½ÄşÄÈ½ÇÉ«±ä»¯
-	if (isHeroJumping)//Ü½ÄşÄÈ½ÇÉ«ÌøÔ¾±ä»¯
-	{
-		heroIndex++;
-		if (heroIndex > 42) // ÕâÀï¼ì²éÌøÔ¾Ë÷ÒıÊÇ·ñ³¬³öÌøÔ¾¶¯»­µÄ·¶Î§
-		{
-			heroIndex = 0; // Èç¹ûÊÇ£¬ÔòÖØÖÃÎª±¼ÅÜ¶¯»­µÄ¿ªÊ¼
-		}
-		heroY -= jumpSpeed;                     // Ó¦ÓÃÌøÔ¾ËÙ¶È
-		jumpSpeed -= GRAVITY;                   // Ó¦ÓÃÖØÁ¦¼ÓËÙ¶È
+    //Ü½ÄşÄÈ½ÇÉ«±ä»¯
+    if (isHeroJumping)//Ü½ÄşÄÈ½ÇÉ«ÌøÔ¾±ä»¯
+    {
+        heroIndex++;
+        if (heroIndex > 42) // ÕâÀï¼ì²éÌøÔ¾Ë÷ÒıÊÇ·ñ³¬³öÌøÔ¾¶¯»­µÄ·¶Î§
+        {
+            heroIndex = 0; // Èç¹ûÊÇ£¬ÔòÖØÖÃÎª±¼ÅÜ¶¯»­µÄ¿ªÊ¼
+        }
+        heroY -= jumpSpeed;                     // Ó¦ÓÃÌøÔ¾ËÙ¶È
+        jumpSpeed -= GRAVITY;                   // Ó¦ÓÃÖØÁ¦¼ÓËÙ¶È
 
-		// Èç¹ûÓ¢ĞÛ´¥µØ£¬Ôò½«Æä×´Ì¬ÉèÖÃÎªµØÃæ×´Ì¬
-		if (heroY >= heroFuY0)
-		{
-			heroY = heroFuY0;
-			isHeroJumping = false;
-			isHeroGrounded = true;
-			jumpSpeed = 0;// ÖØÖÃÌøÔ¾ËÙ¶È
-		}//Ü½ÄşÄÈµÄÅĞ¶¨
-		if (heroY >= heroY0)//Õı³£½ÇÉ«ÅĞ¶¨
-		{
-			heroY = heroY0;
-			isHeroJumping = false;
-			isHeroGrounded = true;
-			jumpSpeed = 0;// ÖØÖÃÌøÔ¾ËÙ¶È
-		}
-	}
-	if (ifHeroSquating)//ÏÂ¶×
-	{
-		heroIndex++;
-		if (heroIndex >= squatImgNumbers - 1)
-		{
-			heroIndex = squatImgNumbers - 1;
-		}
-	}
-	if (!isHeroJumping && !ifHeroSquating)//Ã»ÌøÃ»¶×¾ÍÊÇÔÚÅÜ
-	{
-		//½ÇÉ«±¼ÅÜ±ä»¯
-		if (heroIndex == fuNumAddfutNum - 1) heroIndex = 0;
-		heroIndex = (heroIndex + 1) % 18;
-	}
-	if (heroLeft && !heroRight && heroX > 0)
-	{
-		heroX -= 5;
-		if (heroX < 0)
-		{
-			heroX += 5;
-		}
-		heroLeft = false;
-	}
-	if (!heroLeft && heroRight)
-	{
-		heroX += 5;
-		if (heroX >= WIN_WIDTH - imgHeros[heroIndex].getwidth())
-		{
-			heroX = WIN_WIDTH - imgHeros[heroIndex].getwidth();
-		}
-		heroRight = false;
-	}
-	if (heroLeft && heroRight)
-	{
-		heroLeft = false;
-		heroRight = false;
-	}
-	//Õı³£½ÇÉ«ÌøÔ¾±ä»¯£¬°æ±¾½ÏÀÏ£¬¼ÇµÃ¸üĞÂ
-	/*if (isHeroJumping)
-	{
-		heroY -= jumpSpeed;                     // Ó¦ÓÃÌøÔ¾ËÙ¶È
-		jumpSpeed -= GRAVITY;                   // Ó¦ÓÃÖØÁ¦¼ÓËÙ¶È
+        // Èç¹ûÓ¢ĞÛ´¥µØ£¬Ôò½«Æä×´Ì¬ÉèÖÃÎªµØÃæ×´Ì¬
+        if (heroY >= heroFuY0)
+        {
+            heroY = heroFuY0;
+            isHeroJumping = false;
+            isHeroGrounded = true;
+            jumpSpeed = 0;// ÖØÖÃÌøÔ¾ËÙ¶È
+        }//Ü½ÄşÄÈµÄÅĞ¶¨
+        if (heroY >= heroY0)//Õı³£½ÇÉ«ÅĞ¶¨
+        {
+            heroY = heroY0;
+            isHeroJumping = false;
+            isHeroGrounded = true;
+            jumpSpeed = 0;// ÖØÖÃÌøÔ¾ËÙ¶È
+        }
+    }
+    if (ifHeroSquating)//ÏÂ¶×
+    {
+        heroIndex++;
+        if (heroIndex >= squatImgNumbers - 1)
+        {
+            heroIndex = squatImgNumbers - 1;
+        }
+    }
+    if (!isHeroJumping && !ifHeroSquating)//Ã»ÌøÃ»¶×¾ÍÊÇÔÚÅÜ
+    {
+        //½ÇÉ«±¼ÅÜ±ä»¯
+        if (heroIndex == fuNumAddfutNum - 1) heroIndex = 0;
+        heroIndex = (heroIndex + 1) % 18;
+    }
+    if (heroLeft && !heroRight && heroX > 0)
+    {
+        heroX -= 5;
+        if (heroX < 0)
+        {
+            heroX += 5;
+        }
+        heroLeft = false;
+    }
+    if (!heroLeft && heroRight)
+    {
+        heroX += 5;
+        if (heroX >= WIN_WIDTH - imgHeros[heroIndex].getwidth())
+        {
+            heroX = WIN_WIDTH - imgHeros[heroIndex].getwidth();
+        }
+        heroRight = false;
+    }
+    if (heroLeft && heroRight)
+    {
+        heroLeft = false;
+        heroRight = false;
+    }
+    //ÏÔÊ¾ÕÏ°­ÎïµÄ±ä»¯
+    static int frameCount = 0;//¶¨Òå¾²Ì¬±äÁ¿À©´óÕÏ°­ÎïµÄÓò
+    static int EnemyFre = 70;//Ã¿¸ô¶àÉÙÖ¡
 
-		// Èç¹û½ÇÉ«´¥µØ£¬Ôò½«Æä×´Ì¬ÉèÖÃÎªµØÃæ×´Ì¬
-		if (heroY >= heroFuY0)
-		{
-			heroY = heroFuY0;
-			isHeroJumping = false;
-			isHeroGrounded = true;
-			jumpSpeed = 0;// ÖØÖÃÌøÔ¾ËÙ¶È
-		}
-		if (heroY >= heroY0)//Õı³£½ÇÉ«ÅĞ¶¨
-		{
-			heroY = heroY0;
-			isHeroJumping = false;
-			isHeroGrounded = true;
-			jumpSpeed = 0;// ÖØÖÃÌøÔ¾ËÙ¶È
-		}
-	}
-	else
-	{
-		//½ÇÉ«±¼ÅÜ±ä»¯
-		if (heroIndex == 11) heroIndex = 0;
-		heroIndex = (heroIndex + 1) % 12;
-	}*/
-
-	//ÏÔÊ¾ÕÏ°­ÎïµÄ±ä»¯
-	static int frameCount = 0;//¶¨Òå¾²Ì¬±äÁ¿À©´óÕÏ°­ÎïµÄÓò
-	static int EnemyFre = 70;//Ã¿¸ô¶àÉÙÖ¡
-
-	frameCount++;//ÊıÒ»ÏÂÕâÊÇµÚ¼¸Ö¡
-	if (frameCount > EnemyFre)
-	{
-		frameCount = 0;
-		if (randomIndex >= RandomNumbersMax) randomIndex = 0;
-		random[randomIndex] = time_interval();
-		EnemyFre = EnemyFre0 + random[randomIndex++] % EnemyFre1;
-		createObstacle();
-	}
-	//¸üĞÂÕÏ°­ÎïµÄ×ø±ê
-	for (int i = 0; i < OBSTACLE_COUNT; i++)
-	{
-		if (obstacles[i].ifExist)
-		{
-			obstacles[i].x -= (bgflySpeed[2] + obstacles[i].speed);
-			if (obstacles[i].x < -obstacleImgs[obstacles[i].type][obstacles[i].imgIndex].getwidth() * 2)
-			{
-				obstacles[i].ifExist = false;
-			}
-			int len = obstacleImgs[obstacles[i].type].size();
-			obstacles[i].imgIndex = (obstacles[i].imgIndex + 1) % len;
-		}
-	}
+    frameCount++;//ÊıÒ»ÏÂÕâÊÇµÚ¼¸Ö¡
+    if (frameCount > EnemyFre)
+    {
+        frameCount = 0;
+        if (randomIndex >= RandomNumbersMax) randomIndex = 0;
+        random[randomIndex] = time_interval();
+        EnemyFre = EnemyFre0 + random[randomIndex++] % EnemyFre1;
+        createObstacle();
+    }
+    //¸üĞÂÕÏ°­ÎïµÄ×ø±ê
+    for (auto& obstacle : obstacles)
+    {
+        if (obstacle.ifExist)
+        {
+            obstacle.x -= (bgflySpeed[2] + obstacle.speed);
+            if (obstacle.x < -obstacleImgs[obstacle.type][obstacle.imgIndex].getwidth() * 2)
+            {
+                obstacle.ifExist = false;
+            }
+            int len = obstacleImgs[obstacle.type].size();
+            obstacle.imgIndex = (obstacle.imgIndex + 1) % len;
+        }
+    }
 }
 
 //ÓÎÏ·³õÊ¼»¯
 void init()
 {
-	//Òş²Ø¿ØÖÆÌ¨
-	HideConsole();
+    MessageBoxA(nullptr, "The game is written by a newbie and may cause abnormalities when run multiple times!", "advice", MB_OK);
 
-	MessageBoxA(0, "²»¿É³ÁÃÔÓÎÏ·£¡¸ÃÓÎÏ·ÊÇÓÉÒ»¸öĞÂÊÖĞ´µÄ£¬¶à´ÎÔËĞĞ¿ÉÄÜ»á³öÏÖÒì³££¡", "ÖÒ¸æ", MB_OK);
+    //´´½¨ÓÎÏ·´°¿Ú
+    initgraph(WIN_WIDTH + 196, WIN_HEIGHT);
 
-	//´´½¨ÓÎÏ·´°¿Ú
-	initgraph(WIN_WIDTH + 196, WIN_HEIGHT);
+    //³õÊ¼ÒôÀÖ
+    preLoadSound("res/beginning.mp3");
+    mciSendString("play res/beginning.mp3", nullptr, 0, nullptr);
 
-	//³õÊ¼ÒôÀÖ
-	preLoadSound("res/beginning.mp3");
-	mciSendString("play res/beginning.mp3", 0, 0, 0);
+    //¼ì²é×ÊÔ´ÍêÕûĞÔ
+    IMAGE TEMP;
+    IMAGE imgCHECKING;
+    char tempName[64] = { 0 };
+    char tempName2[64] = { 0 };
+    sprintf(tempName, "res/checking.png");
+    loadimage(&imgCHECKING, tempName);
 
-	//¼ì²é×ÊÔ´ÍêÕûĞÔ
-	IMAGE TEMP;
-	IMAGE imgCHECKING;
-	char tempName[64] = { 0 };
-	char tempName2[64] = { 0 };
-	sprintf(tempName, "res/checking.png");
-	loadimage(&imgCHECKING, tempName);
+    int timers2 = 0;
+    int k = 0;
+    while (k < 5446)
+    {
+        keyEvent();
+        timers2 += getDelay();
+        if (timers2 >= 11)
+        {
+            for (int l = 0; l < 23; l++)
+            {
+                tempName[l] = 0;
+            }
+            timers2 = 0;
+            sprintf(tempName, "res/failure/%04d.jpg", k + 1);
+            sprintf(tempName2, "%04d.jpg", k + 1);
+            //¼ì²â×ÊÔ´
+            loadimage(&TEMP, tempName);
+            char relativePath[] = ".\\res\\failure";  // Ïà¶ÔÂ·¾¶
+            char filename[64] = { 0 };  // Òª¼ì²éµÄÎÄ¼şÃû
+            sprintf(filename, "%04d.jpg", k + 1);
+            if (!isFileExists(relativePath, filename))
+            {
+                MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1110Failure", "Warning", MB_OK);
+                exit(0);
+            }
+            //¼ì²â×ÊÔ´¹ı³ÌÖĞËùĞèÒªµÄ½çÃæ
+            BeginBatchDraw();//¿ªÊ¼äÖÈ¾
+            putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
+            drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
+            EndBatchDraw();//½áÊø±¾´ÎäÖÈ¾
+            k++;
+        }
+    }
 
-	int timers2 = 0;
-	int k = 0;
-	while (k < 5446)
-	{
-		keyEvent();
-		timers2 += getDelay();
-		if (timers2 >= 11)
-		{
-			for (int l = 0; l < 23; l++)
-			{
-				tempName[l] = 0;
-			}
-			timers2 = 0;
-			sprintf(tempName, "res/failure/%04d.jpg", k + 1);
-			sprintf(tempName2, "%04d.jpg", k + 1);
-			loadimage(&TEMP, tempName);
-			char relativePath[] = ".\\res\\failure";  // Ïà¶ÔÂ·¾¶
-			char filename[64] = { 0 };  // Òª¼ì²éµÄÎÄ¼şÃû
-			sprintf(filename, "%04d.jpg", k + 1);
-			if (!isJpgFileExists(relativePath, filename))
-			{
-				HWND hwnd = HideWindow();
-				MessageBoxA(hwnd, "×ÊÔ´¼ÓÔØ´íÎó£¡ÇëÁªÏµ¹ÜÀíÔ±¼ì²é×ÊÔ´ÍêÕûĞÔ£¡´íÎóÂë£º0x1110Failure", "¾¯¸æ", MB_OK);
-				exit(0);
-				ShowWindow(hwnd);
-			}
-			if (k == 11)puts(tempName);
-			BeginBatchDraw();//¿ªÊ¼äÖÈ¾
-			putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
-			drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
-			EndBatchDraw();//½áÊø±¾´ÎäÖÈ¾
-			k++;
-		}
-	}
+    mciSendString("stop res/beginning.mp3", nullptr, 0, nullptr);
 
-	mciSendString("stop res/beginning.mp3", 0, 0, 0);
-
-	//¼ÓÔØ±³¾°×ÊÔ´
-	char name[64];
-	for (int i = 0; i < 3; i++)
-	{
-		sprintf(name, "res/bg%03d.png", i + 1);
-		loadimage(&imgBackgroud[i], name);
-		bgX[i] = 0;
-		if (name == NULL)
-		{
-			HWND hwnd = HideWindow();
-			MessageBoxA(hwnd, "×ÊÔ´¼ÓÔØ´íÎó£¡ÇëÁªÏµ¹ÜÀíÔ±¼ì²é×ÊÔ´ÍêÕûĞÔ£¡´íÎóÂë£º0x1101B_G_", "¾¯¸æ", MB_OK);
-			exit(0);
-			ShowWindow(hwnd);
-		}
-	}
-	sprintf(name, "res/caozuo.png");
-	loadimage(&imgBackgroud[3], name);
-	bgX[3] = WIN_WIDTH;
-	if (name == NULL)
-	{
-		HWND hwnd = HideWindow();
-		MessageBoxA(hwnd, "×ÊÔ´¼ÓÔØ´íÎó£¡ÇëÁªÏµ¹ÜÀíÔ±¼ì²é×ÊÔ´ÍêÕûĞÔ£¡´íÎóÂë£º0x1100B_G_", "¾¯¸æ", MB_OK);
-		exit(0);
-		ShowWindow(hwnd);
-	}
-
-
-	//¼ÓÔØÜ½ÄşÄÈ½ÇÉ«±¼ÅÜ
-	for (int i = 0; i < 18; i++)
-	{
-		sprintf(name, "res/fu%d.png", i + 1);
-		loadimage(&imgHeros[i], name);
-		if (name == NULL)
-		{
-			HWND hwnd = HideWindow();
-			MessageBoxA(hwnd, "×ÊÔ´¼ÓÔØ´íÎó£¡ÇëÁªÏµ¹ÜÀíÔ±¼ì²é×ÊÔ´ÍêÕûĞÔ£¡´íÎóÂë£º0x1011RunningError", "¾¯¸æ", MB_OK);
-			exit(0);
-			ShowWindow(hwnd);
-		}
-	}
-	//¼ÓÔØÜ½ÄşÄÈÉ«ÌøÔ¾
-	for (int i = 18; i < fuNumAddfutNum; i++)
-	{
-		sprintf(name, "res/fut%d.png", i - 17);
-		loadimage(&imgHeros[i], name);
-		if (name == NULL)
-		{
-			HWND hwnd = HideWindow();
-			MessageBoxA(hwnd, "×ÊÔ´¼ÓÔØ´íÎó£¡ÇëÁªÏµ¹ÜÀíÔ±¼ì²é×ÊÔ´ÍêÕûĞÔ£¡´íÎóÂë£º0x1010JumpingError", "¾¯¸æ", MB_OK);
-			exit(0);
-			ShowWindow(hwnd);
-		}
-	}
-	//¼ÓÔØÜ½ÄşÄÈÏÂ¶×
-	for (int i = 0; i < squatImgNumbers; i++)
-	{
-		sprintf(name, "res/fud%d.png", i + 1);
-		loadimage(&imgHeroSquat[i], name);
-		if (name == NULL)
-		{
-			HWND hwnd = HideWindow();
-			MessageBoxA(hwnd, "×ÊÔ´¼ÓÔØ´íÎó£¡ÇëÁªÏµ¹ÜÀíÔ±¼ì²é×ÊÔ´ÍêÕûĞÔ£¡´íÎóÂë£º0x1000SquatingError", "¾¯¸æ", MB_OK);
-			exit(0);
-			ShowWindow(hwnd);
-		}
-	}
-
-	//¼ÓÔØÕı³£½ÇÉ«±¼ÅÜ
-	/*for (int i = 0; i < 12; i++)
-	{
-		sprintf(name, "res/hero%d.png", i + 1);
-		loadimage(&imgHeros[i], name);
-	}
-	//¼ÓÔØÕı³£½ÇÉ«ÌøÔ¾
-	sprintf(name, "res/hero%d.png", 10);
-	loadimage(&imgHeros[12], name);*/
-
-	//³õÊ¼»¯½ÇÉ«Î»ÖÃĞÅÏ¢
-	heroX = WIN_WIDTH * 0.5 - imgHeros[0].getwidth() * 0.5;
-	heroFuY0 = 370 - imgHeros[0].getheight();
-	heroY0 = 360 - imgHeros[0].getheight();
-	heroY = heroFuY0;//½ÇÉ«ÎªÜ½ÄşÄÈµÄ³õÊ¼»¯
-	//heroY = heroY0;//Õı³£½ÇÉ«µÄ³õÊ¼»¯
-	//³õÊ¼Í¼ĞÎµÚ¼¸Ö¡
-	heroIndex = 0;
-
-	//¼ÓÔØ½ÇÉ«ÌøÔ¾Êı¾İ
-	isHeroJumping = false;//½ÇÉ«Ò»¿ªÊ¼Ã»ÓĞÔÚÌø
-	isHeroGrounded = true;   //³õÊ¼Ê±ÔÚµØÃæÉÏ
-	jumpSpeed = 0;//³õËÙ¶ÈÎªÁã
-	ifHeroSquating = false;//¸Õ¿ªÊ¼¿Ï¶¨ÊÇ²»¶×µÄÂï
-
-	ifupdate = true;//Ò»¿ªÊ¼ÊÇĞèÒªË¢ĞÂµÄ
-
-	//·â×°¼ÓÔØÕÏ°­Îï
-	//¼ÓÔØÕÏ°­Îï1-ÎÚ¹ê1
-	IMAGE imgTort;
-	loadimage(&imgTort, "res/t1.png");
-	vector<IMAGE> imgTortArray;
-	imgTortArray.push_back(imgTort);
-	obstacleImgs.push_back(imgTortArray);
-	//¼ÓÔØÕÏ°­Îï2-Ê¨×Ó
-	IMAGE imgLion;
-	vector<IMAGE> imgLionArray;
-	for (int i = 0; i < 6; i++)
-	{
-		sprintf(name, "res/p%d.png", i + 1);
-		loadimage(&imgLion, name);
-		imgLionArray.push_back(imgLion);
-	}
-	obstacleImgs.push_back(imgLionArray);
-	//¼ÓÔØÕÏ°­Îï3-Ğı×ªµÄÎÚ¹ê
-	IMAGE imgRollingTort;
-	vector<IMAGE> imgRollingTortArray;
-	for (int i = 0; i < 6; i++)
-	{
-		sprintf(name, "res/t%d.png", i + 2);
-		loadimage(&imgRollingTort, name);
-		imgRollingTortArray.push_back(imgRollingTort);
-	}
-	obstacleImgs.push_back(imgRollingTortArray);
-	//¼ÓÔØÕÏ°­Îï4-Öù×Ó
-	IMAGE imgHOOK;
-	for (int i = 0; i < 4; i++)
-	{
-		vector<IMAGE> imgHookArray;
-		sprintf(name, "res/h%d.png", i + 1);
-		loadimage(&imgHOOK, name, 63, 260, true);
-		imgHookArray.push_back(imgHOOK);
-		obstacleImgs.push_back(imgHookArray);
-	}
-	//³õÊ¼»¯ÕÏ°­Îï³Ø
-	for (int i = 0; i < OBSTACLE_COUNT; i++)
-	{
-		obstacles[i].ifExist = false;
-		obstacles[i].ifhited = false;
-	}
-
-	ifPause = false;
-	keyPProcessed = false;
-	keySProcessed = false;
-
-	for (int i = 0; i < 100; i++) random[i] = 0;
-	randomIndex = 0;
-
-	HP = 100;
-	SCORE = 0;
-	level = 0;
-	maxScore = 0;
-	heroLeft = false;
-	heroRight = false;
-	ifAdded = true;
-	ReadMax = ReadGrade();
+    //¼ÓÔØ±³¾°×ÊÔ´
+    char name[64];
+    for (int i = 0; i < 3; i++)
+    {
+        sprintf(name, "res/bg%03d.png", i + 1);
+        loadimage(&imgBackgroud[i], name);
+        bgX[i] = 0;
+        //¼ì²â×ÊÔ´
+        char relativePath[] = ".\\res";  // Ïà¶ÔÂ·¾¶
+        char filename[64] = { 0 };  // Òª¼ì²éµÄÎÄ¼şÃû
+        sprintf(filename, "bg%03d.png", i + 1);
+        if (!isFileExists(relativePath, filename))
+        {
+            MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1101B_G_", "Warning", MB_OK);
+            exit(0);
+        }
+    }
+    sprintf(name, "res/caozuo.png");
+    loadimage(&imgBackgroud[3], name);
+    bgX[3] = WIN_WIDTH;
+    //¼ì²â×ÊÔ´
+    char relativePath[] = ".\\res";  // Ïà¶ÔÂ·¾¶
+    char filename[64] = { 0 };  // Òª¼ì²éµÄÎÄ¼şÃû
+    sprintf(filename, "caozuo.png");
+    if (!isFileExists(relativePath, filename))
+    {
+        MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1100B_G_", "Warning", MB_OK);
+        exit(0);
+    }
 
 
-	//Ô¤¼ÓÔØÒôĞ§
-	preLoadSound("res/hit.mp3");
-	preLoadSound("res/failure.mp3");
-	cleardevice(); // Çå¿ÕÆÁÄ»ÄÚÈİ
-	//¿ªÊ¼ÓÎÏ·
-	sprintf(tempName, "res/start.png");
-	loadimage(&imgCHECKING, tempName);
-	for (int i = 0; i < 200; i++)
-	{
-		BeginBatchDraw();//¿ªÊ¼äÖÈ¾
-		putimagePNG2((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
-		drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, 1);
-		EndBatchDraw();//½áÊø±¾´ÎäÖÈ¾
-		Sleep(10);
-	}
-	preLoadSound("res/traveling.mp3");
-	mciSendString("play res/traveling.mp3 repeat", 0, 0, 0);
+    //¼ÓÔØÜ½ÄşÄÈ½ÇÉ«±¼ÅÜ
+    for (int i = 0; i < 18; i++)
+    {
+        sprintf(name, "res/fu%d.png", i + 1);
+        loadimage(&imgHeros[i], name);
+        sprintf(filename, "fu%d.png", i + 1);
+        if (!isFileExists(relativePath, filename))
+        {
+            MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1011RunningError", "Warning", MB_OK);
+            exit(0);
+        }
+    }
+    //¼ÓÔØÜ½ÄşÄÈÉ«ÌøÔ¾
+    for (int i = 18; i < fuNumAddfutNum; i++)
+    {
+        sprintf(name, "res/fut%d.png", i - 17);
+        loadimage(&imgHeros[i], name);
+        sprintf(filename, "fut%d.png", i - 17);
+        if (!isFileExists(relativePath, filename))
+        {
+            MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1010JumpingError", "Warning", MB_OK);
+            exit(0);
+        }
+    }
+    //¼ÓÔØÜ½ÄşÄÈÏÂ¶×
+    for (int i = 0; i < squatImgNumbers; i++)
+    {
+        sprintf(name, "res/fud%d.png", i + 1);
+        loadimage(&imgHeroSquat[i], name);
+        sprintf(filename, "fud%d.png", i + 1);
+        if (!isFileExists(relativePath, filename))
+        {
+            MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1000SquatingError", "Warning", MB_OK);
+            exit(0);
+        }
+    }
+
+    //³õÊ¼»¯½ÇÉ«Î»ÖÃĞÅÏ¢
+    heroX = WIN_WIDTH * 0.5 - imgHeros[0].getwidth() * 0.5;
+    heroFuY0 = 370 - imgHeros[0].getheight();
+    heroY0 = 360 - imgHeros[0].getheight();
+    heroY = heroFuY0;//½ÇÉ«ÎªÜ½ÄşÄÈµÄ³õÊ¼»¯
+    //³õÊ¼Í¼ĞÎµÚ¼¸Ö¡
+    heroIndex = 0;
+
+    //¼ÓÔØ½ÇÉ«ÌøÔ¾Êı¾İ
+    isHeroJumping = false;//½ÇÉ«Ò»¿ªÊ¼Ã»ÓĞÔÚÌø
+    isHeroGrounded = true;   //³õÊ¼Ê±ÔÚµØÃæÉÏ
+    jumpSpeed = 0;//³õËÙ¶ÈÎªÁã
+    ifHeroSquating = false;//¸Õ¿ªÊ¼¿Ï¶¨ÊÇ²»¶×µÄÂï
+
+    ifupdate = true;//Ò»¿ªÊ¼ÊÇĞèÒªË¢ĞÂµÄ
+
+    //·â×°¼ÓÔØÕÏ°­Îï
+    //¼ÓÔØÕÏ°­Îï1-ÎÚ¹ê1
+    IMAGE imgTort;
+    loadimage(&imgTort, "res/t1.png");
+    vector<IMAGE> imgTortArray;
+    imgTortArray.push_back(imgTort);
+    obstacleImgs.push_back(imgTortArray);
+    //¼ÓÔØÕÏ°­Îï2-Ê¨×Ó
+    IMAGE imgLion;
+    vector<IMAGE> imgLionArray;
+    for (int i = 0; i < 6; i++)
+    {
+        sprintf(name, "res/p%d.png", i + 1);
+        loadimage(&imgLion, name);
+        imgLionArray.push_back(imgLion);
+    }
+    obstacleImgs.push_back(imgLionArray);
+    //¼ÓÔØÕÏ°­Îï3-Ğı×ªµÄÎÚ¹ê
+    IMAGE imgRollingTort;
+    vector<IMAGE> imgRollingTortArray;
+    for (int i = 0; i < 6; i++)
+    {
+        sprintf(name, "res/t%d.png", i + 2);
+        loadimage(&imgRollingTort, name);
+        imgRollingTortArray.push_back(imgRollingTort);
+    }
+    obstacleImgs.push_back(imgRollingTortArray);
+    //¼ÓÔØÕÏ°­Îï4-Öù×Ó
+    IMAGE imgHOOK;
+    for (int i = 0; i < 4; i++)
+    {
+        vector<IMAGE> imgHookArray;
+        sprintf(name, "res/h%d.png", i + 1);
+        loadimage(&imgHOOK, name, 63, 260, true);
+        imgHookArray.push_back(imgHOOK);
+        obstacleImgs.push_back(imgHookArray);
+    }
+    //³õÊ¼»¯ÕÏ°­Îï³Ø
+    for (auto& obstacle : obstacles)
+    {
+        obstacle.ifExist = false;
+        obstacle.ifhited = false;
+    }
+
+    ifPause = false;
+    keyPProcessed = false;
+    keySProcessed = false;
+
+    for (int i = 0; i < 100; i++) random[i] = 0;
+    randomIndex = 0;
+
+    HP = 100;
+    SCORE = 0;
+    level = 0;
+    maxScore = 0;
+    heroLeft = false;
+    heroRight = false;
+    ifAdded = true;
+    ReadMax = ReadGrade();
+
+
+    //Ô¤¼ÓÔØÒôĞ§
+    preLoadSound("res/hit.mp3");
+    preLoadSound("res/failure.mp3");
+    cleardevice(); // Çå¿ÕÆÁÄ»ÄÚÈİ
+    //¿ªÊ¼ÓÎÏ·
+    sprintf(tempName, "res/start.png");
+    loadimage(&imgCHECKING, tempName);
+    for (int i = 0; i < 200; i++)
+    {
+        BeginBatchDraw();//¿ªÊ¼äÖÈ¾
+        putimagePNG2((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
+        drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, 1);
+        EndBatchDraw();//½áÊø±¾´ÎäÖÈ¾
+        Sleep(10);
+    }
+    preLoadSound("res/traveling.mp3");
+    mciSendString("play res/traveling.mp3 repeat", nullptr, 0, nullptr);
 }
 
 //Ö÷º¯Êı
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pCmdLine, int nCmdShow)
 {
-	init();//Æô¶¯Ö÷´°¿Ú
+    init();//Æô¶¯Ö÷´°¿Ú
 
-	int timer = 0;//Ê¹ÓÃ¼ÆÊ±Æ÷ÓÅ»¯Ö¡
-	while (1)//Ã¿´ÎÑ­»·ÊÇÒ»Ö¡
-	{
-		keyEvent();//½ÓÊÕÊäÈëº¯Êı
-		timer += getDelay();//¼ÓÉÏµ×²ãÂß¼­»ù´¡µ¥Î»Ê±¼ä
-		if ((timer > 30 || ifupdate) && !ifPause)
-		{
-			timer = 0;
-			ifupdate = false;
-
-			BeginBatchDraw();//»æ»­±³¾°
-			updateBackGroud();//¸üĞÂ±³¾°
-			//system("pause");//ÓÃÀ´µ÷ÊÔ
-			updateHeros();
-			updateEnemy();
-			updateBloodBar();
-			//printf("%d\n", heroIndex);//ÓÃÀ´µ÷ÊÔ
-			EndBatchDraw();//½áÊø±¾´ÎäÖÈ¾
-			checkHP();
-			checkScore();
-			fly();//×ø±êÒÆ¶¯£¬ÎªÏÂÒ»´ÎÌøÔ¾×ö×¼±¸£»
-		}
-	}
-	return 0;
+    int timer = 0;//Ê¹ÓÃ¼ÆÊ±Æ÷ÓÅ»¯Ö¡
+    while (1)//Ã¿´ÎÑ­»·ÊÇÒ»Ö¡
+    {
+        keyEvent();//½ÓÊÕÊäÈëº¯Êı
+        timer += getDelay();//¼ÓÉÏµ×²ãÂß¼­»ù´¡µ¥Î»Ê±¼ä
+        if ((timer > 30 || ifupdate) && !ifPause)
+        {
+            timer = 0;
+            ifupdate = false;
+            BeginBatchDraw();//»æ»­±³¾°
+            updateBackGroud();//¸üĞÂ±³¾°
+            updateHeros();
+            updateEnemy();
+            updateBloodBar();
+            EndBatchDraw();//½áÊø±¾´ÎäÖÈ¾
+            checkHP();
+            checkScore();
+            fly();//×ø±êÒÆ¶¯£¬ÎªÏÂÒ»´ÎÌøÔ¾×ö×¼±¸£»
+        }
+    }
 }
