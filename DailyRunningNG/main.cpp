@@ -51,6 +51,9 @@
     17.实现界面初始化，检查游戏资源完整性
     18.实现结束页面的音画同步
     19.显示当前分数
+    20.实现全局暂停
+    * 21.实现读取日期，从而避免每次都检查资源
+    * 22.增加开始页面，避免玩家直接开始游戏
 */
 #include<cstdio>
 #include<graphics.h>
@@ -161,9 +164,20 @@ int maxScore;
 int level;
 bool ifAdded;
 IMAGE imgFailures[100];
-int EnemyFre0 = 50;
-int EnemyFre1 = 51;
+int EnemyFre0;
+int EnemyFre1;
 int ReadMax;
+int dist;
+
+typedef enum
+{
+    BEGINNING,//开始界面
+    CHECKING,//检测资源
+    TRAVELING,//游戏中
+    FAILURE,//结算界面
+    MUSIC_COUNT
+}music_type;
+music_type musicIndex;
 
 typedef enum
 {
@@ -197,6 +211,9 @@ obstacle_t obstacles[OBSTACLE_COUNT];
 
 //以上是定义部分-----------------------------------------------------------------------------------------------------------------------------------
 //以下是逻辑部分-----------------------------------------------------------------------------------------------------------------------------------
+
+void init();
+
 
 //时间函数，获取时间的最后两位，毫秒级，大大增加了随机性
 int time_interval()
@@ -417,19 +434,54 @@ void squat()
 //检测玩家是否需要中途退出
 void ifWannaExit()
 {
+    if (musicIndex == CHECKING)
+    {
+        mciSendString("pause res/checking.mp3", nullptr, 0, nullptr);
+    }
+    if (musicIndex == BEGINNING)
+    {
+        mciSendString("pause res/beginning.mp3", nullptr, 0, nullptr);
+    }
+    if (musicIndex == TRAVELING)
+    {
+        mciSendString("pause res/traveling.mp3", nullptr, 0, nullptr);
+    }
+    if (musicIndex == FAILURE)
+    {
+        mciSendString("pause res/failure.mp3", nullptr, 0, nullptr);
+    }
+
+
     if (HP > 0)
     {
-        if (IDYES == MessageBoxA(nullptr, "The game is not saved, is it quitting?", "pay attention", MB_YESNO))
+        if (IDYES == MessageBoxA(nullptr, "游戏未保存，是否退出？", "注意", MB_YESNO))
         {
             exit(0);
         }
     }
     else
     {
-        if (IDYES == MessageBoxA(nullptr, "The data has been saved, is it immediately exited?", "DailyRunningNG", MB_YESNO))
+        if (IDYES == MessageBoxA(nullptr, "数据已保存，是否立即退出？", "DailyRunningNG", MB_YESNO))
         {
             exit(0);
         }
+    }
+
+    if (musicIndex == CHECKING)
+    {
+        mciSendString("play res/checking.mp3", nullptr, 0, nullptr);
+    }
+    if (musicIndex == BEGINNING)
+    {
+        mciSendString("play res/beginning.mp3", nullptr, 0, nullptr);
+    }
+    if (musicIndex == TRAVELING)
+    {
+        mciSendString("play res/traveling.mp3", nullptr, 0, nullptr);
+    }
+    if (musicIndex == FAILURE)
+    {
+        mciSendString("play res/failure.mp3", nullptr, 0, nullptr);
     }
 }
 
@@ -571,6 +623,7 @@ void checkHP()
 {
     if (HP <= 0)
     {
+        musicIndex = FAILURE;
         int grade = (maxScore >= ReadMax ? maxScore : ReadMax);
         WriteGrade(grade);
         mciSendString("stop res/traveling.mp3", nullptr, 0, nullptr);
@@ -596,7 +649,15 @@ void checkHP()
         }
 
         mciSendString("stop res/failure.mp3", nullptr, 0, nullptr);
-        ifWannaExit();
+        MessageBoxA(nullptr, "游戏数据已保存，希望你下次还能更好！", "DailyRunningNG", MB_OK);
+        if (IDYES == MessageBoxA(nullptr, "是否再来一局？", "DailyRunningNG", MB_YESNO))
+        {
+            init();
+        }
+        else
+        {
+            exit(0);
+        }
     }
 }
 
@@ -657,16 +718,16 @@ void fly()
     }
     if (heroLeft && !heroRight && heroX > 0)
     {
-        heroX -= 5;
+        heroX -= dist;
         if (heroX < 0)
         {
-            heroX += 5;
+            heroX += dist;
         }
         heroLeft = false;
     }
     if (!heroLeft && heroRight)
     {
-        heroX += 5;
+        heroX += dist;
         if (heroX >= WIN_WIDTH - imgHeros[heroIndex].getwidth())
         {
             heroX = WIN_WIDTH - imgHeros[heroIndex].getwidth();
@@ -710,14 +771,16 @@ void fly()
 //游戏初始化
 void init()
 {
-    MessageBoxA(nullptr, "The game is written by a newbie and may cause abnormalities when run multiple times!", "advice", MB_OK);
+    MessageBoxA(nullptr, "不可沉迷游戏！", "忠告", MB_OK);
 
     //创建游戏窗口
     initgraph(WIN_WIDTH + 196, WIN_HEIGHT);
 
+    //检测界面
     //初始音乐
-    preLoadSound("res/beginning.mp3");
-    mciSendString("play res/beginning.mp3", nullptr, 0, nullptr);
+    musicIndex = CHECKING;
+    mciSendString("open res/checking.mp3", nullptr, 0, nullptr);
+    mciSendString("play res/checking.mp3", nullptr, 0, nullptr);
 
     //检查资源完整性
     IMAGE TEMP;
@@ -749,7 +812,7 @@ void init()
             sprintf(filename, "%04d.jpg", k + 1);
             if (!isFileExists(relativePath, filename))
             {
-                MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1110Failure", "Warning", MB_OK);
+                MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1110Failure", "警告", MB_OK);
                 exit(0);
             }
             //检测资源过程中所需要的界面
@@ -776,7 +839,7 @@ void init()
         sprintf(filename, "bg%03d.png", i + 1);
         if (!isFileExists(relativePath, filename))
         {
-            MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1101B_G_", "Warning", MB_OK);
+            MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1101B_G_", "警告", MB_OK);
             exit(0);
         }
     }
@@ -789,7 +852,7 @@ void init()
     sprintf(filename, "caozuo.png");
     if (!isFileExists(relativePath, filename))
     {
-        MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1100B_G_", "Warning", MB_OK);
+        MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1100B_G_", "警告", MB_OK);
         exit(0);
     }
 
@@ -802,7 +865,7 @@ void init()
         sprintf(filename, "fu%d.png", i + 1);
         if (!isFileExists(relativePath, filename))
         {
-            MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1011RunningError", "Warning", MB_OK);
+            MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1011RunningError", "警告", MB_OK);
             exit(0);
         }
     }
@@ -814,7 +877,7 @@ void init()
         sprintf(filename, "fut%d.png", i - 17);
         if (!isFileExists(relativePath, filename))
         {
-            MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1010JumpingError", "Warning", MB_OK);
+            MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1010JumpingError", "警告", MB_OK);
             exit(0);
         }
     }
@@ -826,7 +889,7 @@ void init()
         sprintf(filename, "fud%d.png", i + 1);
         if (!isFileExists(relativePath, filename))
         {
-            MessageBoxA(nullptr, "Resource loading error!Please contact the administrator to check the resource integrity!Error code:0x1000SquatingError", "Warning", MB_OK);
+            MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1000SquatingError", "警告", MB_OK);
             exit(0);
         }
     }
@@ -906,11 +969,15 @@ void init()
     heroRight = false;
     ifAdded = true;
     ReadMax = ReadGrade();
-
+    dist = 5;
+    EnemyFre0 = 50;
+    EnemyFre1 = 51;
 
     //预加载音效
-    preLoadSound("res/hit.mp3");
-    preLoadSound("res/failure.mp3");
+    /*preLoadSound("res/hit.mp3");
+    preLoadSound("res/failure.mp3");*/
+    mciSendString("open res/hit.mp3", nullptr, 0, nullptr);
+    mciSendString("open res/failure.mp3", nullptr, 0, nullptr);
     cleardevice(); // 清空屏幕内容
     //开始游戏
     sprintf(tempName, "res/start.png");
@@ -923,7 +990,17 @@ void init()
         EndBatchDraw();//结束本次渲染
         Sleep(10);
     }
-    preLoadSound("res/traveling.mp3");
+
+    //开始界面
+    //初始音乐
+    musicIndex = BEGINNING;
+    mciSendString("open res/beginning.mp3", nullptr, 0, nullptr);
+    mciSendString("play res/beginning.mp3", nullptr, 0, nullptr);
+    //。。。。
+
+    //真的开始啦
+    musicIndex = TRAVELING;
+    mciSendString("open res/traveling.mp3", nullptr, 0, nullptr);
     mciSendString("play res/traveling.mp3 repeat", nullptr, 0, nullptr);
 }
 

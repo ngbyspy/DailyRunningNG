@@ -123,50 +123,6 @@ bool rectIntersect(int x01, int y01, int x02, int y02,
     return  (zx <= x && zy <= y);
 }
 
-void  preLoadSound(const char* name) {
-    char cmd[512];
-    sprintf_s(cmd, sizeof(cmd), "open %s alias %s-1", name, name);
-    mciSendString(cmd, 0, 0, 0);
-    sprintf_s(cmd, sizeof(cmd), "open %s alias %s-2", name, name);
-    mciSendString(cmd, 0, 0, 0);
-    if (cmd == NULL)
-    {
-        MessageBoxA(0, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1111preLoadError", "警告", MB_OK);
-        exit(0);
-    }
-}
-
-void preLoadVideo(const char* name) {
-    char cmd[512];
-    sprintf_s(cmd, sizeof(cmd), "open %s type MPEGVideo alias %s-1", name, name);
-    mciSendString(cmd, nullptr, 0, nullptr);
-    sprintf_s(cmd, sizeof(cmd), "open %s type MPEGVideo alias %s-2", name, name);
-    mciSendString(cmd, nullptr, 0, nullptr);
-}
-
-void  playSound(const char* name) {
-    static int index = 1;
-    char cmd[512];
-
-    if (index == 1) {
-        sprintf_s(cmd, sizeof(cmd), "play %s-1", name);
-        mciSendString(cmd, 0, 0, 0);
-        sprintf_s(cmd, sizeof(cmd), "close %s-2", name);
-        mciSendString(cmd, 0, 0, 0);
-        sprintf_s(cmd, sizeof(cmd), "open %s alias %s-2", name, name);
-        mciSendString(cmd, 0, 0, 0);
-        index++;
-    }
-    else if (index == 2) {
-        sprintf_s(cmd, sizeof(cmd), "play %s-2", name);
-        mciSendString(cmd, 0, 0, 0);
-        sprintf_s(cmd, sizeof(cmd), "close %s-1", name);
-        mciSendString(cmd, 0, 0, 0);
-        sprintf_s(cmd, sizeof(cmd), "open %s alias %s-1", name, name);
-        mciSendString(cmd, 0, 0, 0);
-        index = 1;
-    }
-}
 void drawBloodBar(int x, int y, int width, int height, int lineWidth, int boardColor, int emptyColor, int fillColor, float percent) {
     LINESTYLE lineStyle;
     getlinestyle(&lineStyle);
