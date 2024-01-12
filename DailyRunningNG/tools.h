@@ -19,3 +19,9 @@ void drawBloodBar(int x, int y, int width, int height, int lineWidth, int boardC
 int ReadGrade();
 
 void WriteGrade(int grade);
+
+long long ReadLastDate();
+
+long long ReadPresentTime();
+
+bool ifDateOverSevenDays(long long CurrentDate, long long LastDate);

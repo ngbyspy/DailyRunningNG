@@ -131,12 +131,14 @@
   <ItemGroup>
     <ClCompile Include="Check.cpp" />
     <ClCompile Include="checkfiles.cpp" />
+    <ClCompile Include="date_tool.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Check.h" />
     <ClInclude Include="checkfiles.h" />
+    <ClInclude Include="date_tool.h" />
     <ClInclude Include="tools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

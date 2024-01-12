@@ -7,7 +7,9 @@
 *		用VS打开该代码一定要修改属性！！！
 *		用VS打开该代码一定要修改属性！！！
 *		用VS打开该代码一定要修改属性！！！
-*
+*   
+*   如果打开的是sln文件则不用改了，我已经帮你改好了。
+* 
 *	修改方式：右键项目→属性→高级→字符集→使用多字节字符集
 *							↘C/C++→SDL检查→否
 */
@@ -52,7 +54,7 @@
     18.实现结束页面的音画同步
     19.显示当前分数
     20.实现全局暂停
-    * 21.实现读取日期，从而避免每次都检查资源
+    21.实现读取日期，从而避免每次都检查资源
     * 22.增加开始页面，避免玩家直接开始游戏
 */
 #include<cstdio>
@@ -60,6 +62,7 @@
 #include"tools.h"
 #include"Check.h"
 #include"checkfiles.h"
+#include"date_tool.h"
 #include<vector>
 //#pragma comment( linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"" ) // 设置入口地址
 /*以下头文件为时间函数所需*/
@@ -158,7 +161,7 @@ bool keyPProcessed;  // 新增变量，判断P键是否已经处理过
 int random[RandomNumbersMax];//随机数集
 int randomIndex;
 
-int HP;
+int HP = 100;//特殊需要，因为要检测Esc键，所以要提前再赋值一次
 int SCORE;
 int maxScore;
 int level;
@@ -776,55 +779,63 @@ void init()
     //创建游戏窗口
     initgraph(WIN_WIDTH + 196, WIN_HEIGHT);
 
-    //检测界面
-    //初始音乐
-    musicIndex = CHECKING;
-    mciSendString("open res/checking.mp3", nullptr, 0, nullptr);
-    mciSendString("play res/checking.mp3", nullptr, 0, nullptr);
+    long long lastDate = ReadLastDate();
+    long long currentDate = ReadPresentTime();
+    int ifScoreNotZero = ReadGrade();
 
-    //检查资源完整性
-    IMAGE TEMP;
-    IMAGE imgCHECKING;
+    //以下三个定义原本是放在if语句中的，但是这样会造成下面有需要的时候会报错，因此挪上来
     char tempName[64] = { 0 };
     char tempName2[64] = { 0 };
-    sprintf(tempName, "res/checking.png");
-    loadimage(&imgCHECKING, tempName);
-
-    int timers2 = 0;
-    int k = 0;
-    while (k < 5446)
+    IMAGE imgCHECKING;
+    if (!ifScoreNotZero || ifDateOverSevenDays(currentDate, lastDate))
     {
-        keyEvent();
-        timers2 += getDelay();
-        if (timers2 >= 11)
-        {
-            for (int l = 0; l < 23; l++)
-            {
-                tempName[l] = 0;
-            }
-            timers2 = 0;
-            sprintf(tempName, "res/failure/%04d.jpg", k + 1);
-            sprintf(tempName2, "%04d.jpg", k + 1);
-            //检测资源
-            loadimage(&TEMP, tempName);
-            char relativePath[] = ".\\res\\failure";  // 相对路径
-            char filename[64] = { 0 };  // 要检查的文件名
-            sprintf(filename, "%04d.jpg", k + 1);
-            if (!isFileExists(relativePath, filename))
-            {
-                MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1110Failure", "警告", MB_OK);
-                exit(0);
-            }
-            //检测资源过程中所需要的界面
-            BeginBatchDraw();//开始渲染
-            putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
-            drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
-            EndBatchDraw();//结束本次渲染
-            k++;
-        }
-    }
+        //满足条件则加载检测界面
+        //初始音乐
+        musicIndex = CHECKING;
+        mciSendString("open res/checking.mp3", nullptr, 0, nullptr);
+        mciSendString("play res/checking.mp3", nullptr, 0, nullptr);
 
-    mciSendString("stop res/beginning.mp3", nullptr, 0, nullptr);
+        //检查资源完整性
+        IMAGE TEMP;
+        
+        sprintf(tempName, "res/checking.png");
+        loadimage(&imgCHECKING, tempName);
+        int timers2 = 0;
+        int k = 0;
+        while (k < 5446)
+        {
+            keyEvent();
+            timers2 += getDelay();
+            if (timers2 >= 11)
+            {
+                for (int l = 0; l < 23; l++)
+                {
+                    tempName[l] = 0;
+                }
+                timers2 = 0;
+                sprintf(tempName, "res/failure/%04d.jpg", k + 1);
+                sprintf(tempName2, "%04d.jpg", k + 1);
+                //检测资源
+                loadimage(&TEMP, tempName);
+                char relativePath[] = ".\\res\\failure";  // 相对路径
+                char filename[64] = { 0 };  // 要检查的文件名
+                sprintf(filename, "%04d.jpg", k + 1);
+                if (!isFileExists(relativePath, filename))
+                {
+                    MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1110Failure", "警告", MB_OK);
+                    exit(0);
+                }
+                //检测资源过程中所需要的界面
+                BeginBatchDraw();//开始渲染
+                putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
+                drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
+                EndBatchDraw();//结束本次渲染
+                k++;
+            }
+        }
+
+        mciSendString("stop res/checking.mp3", nullptr, 0, nullptr);
+    }
 
     //加载背景资源
     char name[64];
@@ -1000,6 +1011,7 @@ void init()
 
     //真的开始啦
     musicIndex = TRAVELING;
+    mciSendString("stop res/beginning.mp3", nullptr, 0, nullptr);
     mciSendString("open res/traveling.mp3", nullptr, 0, nullptr);
     mciSendString("play res/traveling.mp3 repeat", nullptr, 0, nullptr);
 }

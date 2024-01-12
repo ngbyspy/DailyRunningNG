@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <Windows.h>
 #include "tools.h"
+#include"date_tool.h"
 #include<graphics.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
@@ -149,6 +150,7 @@ void drawBloodBar(int x, int y, int width, int height, int lineWidth, int boardC
     setlinestyle(&lineStyle);
 }
 
+//读取最高分
 int ReadGrade()
 {
     FILE* file = fopen("MaxScoreHistory.dat", "r"); //以只读的方式打开文件
@@ -169,6 +171,7 @@ int ReadGrade()
     return max;
 }
 
+//写入最高分
 void WriteGrade(int grade)
 {
     FILE* file = fopen("MaxScoreHistory.dat", "w"); //以只写的方式打开文件
@@ -179,4 +182,167 @@ void WriteGrade(int grade)
     }
     fprintf(file, "%d ", grade); //将本局游戏得分写入文件
     fclose(file);
+}
+
+//获取当前时间
+long long ReadPresentTime()
+{
+    int year, month, day, hour, minute, second;
+    char dateStr[50] = { 0 }; // 用于存储农历日期字符串
+    // 获取当前公历年月日
+    getDate(&year, &month, &day, dateStr);
+    // 获取当前时间
+    getTime(&hour, &minute, &second);
+
+    // 计算当前时间的时间戳，可以根据需要调整格式，这里假定为YYYYMMDDHHMMSS形式
+    long long datetime = year * 10000000000LL + month * 100000000LL +
+        day * 1000000LL + hour * 10000LL + minute * 100LL + second;
+
+    return datetime;
+}
+
+//读取日志的日期
+long long ReadLastDate()
+{
+    int year, month, day, hour, minute, second;
+    char dateStr[50] = { 0 }; // 用于存储农历日期字符串
+    // 获取当前公历年月日
+    getDate(&year, &month, &day, dateStr);
+    // 获取当前时间
+    getTime(&hour, &minute, &second);
+
+    FILE* file = fopen("DateList.dat", "r"); // 以只读的方式打开文件
+    if (file == NULL) // 如果文件不存在
+    {
+        file = fopen("DateList.dat", "w"); // 以只写的方式创建并打开文件
+        if (file != NULL) // 确保文件成功打开
+        {
+            // 计算当前时间的时间戳，可以根据需要调整格式，这里假定为YYYYMMDDHHMMSS形式
+            long long datetime = year * 10000000000LL + month * 100000000LL +
+                day * 1000000LL + hour * 10000LL + minute * 100LL + second;
+
+            fprintf(file, "%lld", datetime); // 将当前日期和时间以整数形式写入文件
+            fclose(file);
+            return datetime; // 返回写入的日期和时间
+        }
+        return 0; // 无法打开文件时返回0
+    }
+
+    // 如果文件存在，读取文件内容
+    long long LastDateReturn;
+    if (fscanf(file, "%lld", &LastDateReturn) == 1) // 读取文件中的日期和时间
+    {
+        fclose(file);
+        return LastDateReturn; // 返回文件中的日期和时间
+    }
+
+    // 如果从文件中读取失败
+    fclose(file);
+    return 0;
+}
+
+bool ifDateOverSevenDays(long long CurrentDate, long long LastDate)
+{
+    //定义很简单
+    long long currentYear, currentMonth, currentDay, currentHour, currentMinute, currentSecond;
+    long long lastYear, lastMonth, lastDay, lastHour, lastMinute, lastSecond;
+    //提取年
+    currentYear = CurrentDate / 10000000000LL;
+    lastYear = LastDate / 10000000000LL;
+    //提取月
+    currentMonth = (CurrentDate / 100000000LL) % 100LL;
+    lastMonth = (LastDate / 100000000LL) % 100LL;
+
+    //有年月就可以判定一次了
+    if (currentYear > lastYear && (lastMonth != 12 || currentMonth != 1)) //不是12月和不是1月只要满足一个就一定不会是前一年底和后一年初的关系
+    {
+        return true;
+    }
+
+    if (currentYear > lastYear) //依然不是同年，那就是说上一个if语句是后面不满足，即是说，可能存在前一年底和后一年初的关系
+    {
+        if (currentMonth == 1 && lastMonth == 12) //确实是前一年底和后一年初的关系，那就提取天数
+        {
+            currentDay = (CurrentDate / 1000000LL) % 100LL;
+            lastDay = (LastDate / 1000000LL) % 100LL;
+            if (currentDay < 7 && lastDay>24) //新月7号以前或者上一月24号以后，都是7天的分界线，可能会低于七天
+            {
+                if (lastDay > 24 + currentDay)//低于七天，不需要检测资源
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else //否则就不影响啦
+            {
+                return true;
+            }
+        }
+        else//那也就不影响啦
+        {
+            return true;
+        }
+    }
+    //同一年，反而好判断了很多
+    if (currentYear == lastYear)
+    {
+        //现在的月份比上一次还早，说明数据出问题了
+        if (currentMonth < lastMonth)
+        {
+            MessageBoxA(nullptr, "数据加载错误！请联系管理员检查资源正确性！错误码：0x1111Dating_Month", "警告", MB_OK);
+            exit(-1);
+        }
+
+        if (currentMonth - lastMonth > 1) //相隔最少两个月，肯定超过七天了
+        {
+            return true;
+        }
+        else if (currentMonth - lastMonth == 1) // 多一个月
+        {
+            // 获取月，天，时，分，秒，全部加起来，直接判断
+            currentDay = (CurrentDate / 1000000LL) % 100LL;
+            lastDay = (LastDate / 1000000LL) % 100LL;
+            currentHour = (CurrentDate / 10000LL) % 100LL;
+            lastHour = (LastDate / 10000LL) % 100LL;
+            currentMinute = (CurrentDate / 100LL) % 100LL;
+            lastMinute = (LastDate / 100LL) % 100LL;
+            currentSecond = CurrentDate % 100LL;
+            lastSecond = LastDate % 100LL;
+
+            // 转换为统一的时间单位（秒）来进行比较，这里假定每个月有30天
+            long long currentTimeInSeconds = currentDay * 24 * 3600 + currentHour * 3600 +
+                currentMinute * 60 + currentSecond;
+            // 上个月的天数与30天相减再加上当前天数即可得出前后两日期“总天数”的差
+            long long lastTimeInSeconds = (30 - lastDay) * 24 * 3600 + lastHour * 3600 +
+                lastMinute * 60 + lastSecond;
+
+            // 检查两个日期相差7天以上（7天 == 604800秒）
+            if (currentTimeInSeconds + lastTimeInSeconds >= 604800) 
+            {
+                return true; // 已超过7天
+            }
+            else 
+            {
+                return false; // 不足7天
+            }
+        }
+        else // 同一个月
+        {
+            // 直接提取天数比较
+            currentDay = (CurrentDate / 1000000LL) % 100LL;
+            lastDay = (LastDate / 1000000LL) % 100LL;
+
+            return currentDay - lastDay > 7;
+        }
+    
+    }
+    //现在比上一次还要早，说明数据出问题了，直接返回bug
+    if (currentYear < lastYear)
+    {
+        MessageBoxA(nullptr, "数据加载错误！请联系管理员检查资源正确性！错误码：0x1111Dating_Year", "警告", MB_OK);
+        exit(-1);
+    }
 }
