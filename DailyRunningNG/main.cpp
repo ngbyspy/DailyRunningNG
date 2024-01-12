@@ -7,9 +7,9 @@
 *		用VS打开该代码一定要修改属性！！！
 *		用VS打开该代码一定要修改属性！！！
 *		用VS打开该代码一定要修改属性！！！
-*   
+*
 *   如果打开的是sln文件则不用改了，我已经帮你改好了。
-* 
+*
 *	修改方式：右键项目→属性→高级→字符集→使用多字节字符集
 *							↘C/C++→SDL检查→否
 */
@@ -216,224 +216,6 @@ obstacle_t obstacles[OBSTACLE_COUNT];
 //以下是逻辑部分-----------------------------------------------------------------------------------------------------------------------------------
 
 void init();
-
-
-//时间函数，获取时间的最后两位，毫秒级，大大增加了随机性
-int time_interval()
-{
-    struct timeb tv {};
-    struct tm* t;
-
-    ftime(&tv);
-
-    time_t now = tv.time;
-    t = localtime(&now);
-    if (t == nullptr) {
-        perror("localtime");
-        return -1;
-    }
-    return tv.millitm % 100;
-}
-
-//生成障碍物，写这个函数的时候对整个代码都已经比较熟悉了，没怎么写注释
-void createObstacle()
-{
-    int i;
-    for (i = 0; i < OBSTACLE_COUNT; i++)
-    {
-        if (!obstacles[i].ifExist)
-        {
-            break;
-        }
-    }
-    if (i >= OBSTACLE_COUNT) return;
-
-    obstacles[i].ifExist = true;
-    obstacles[i].ifhited = false;
-    obstacles[i].ifpassed = false;
-    obstacles[i].imgIndex = 0;
-    if (randomIndex >= RandomNumbersMax) randomIndex = 0;
-    random[randomIndex] = time_interval();
-    obstacles[i].type = (obstacle_type)(random[randomIndex++] % (OBSTACLE_TYPE_COUNT - 0));//把多个柱子放到一起，不然柱子的出现概率会过大
-    obstacles[i].x = WIN_WIDTH;
-    obstacles[i].y = 360 - obstacleImgs[obstacles[i].type][0].getheight();
-    if (obstacles[i].type == TORTOISE)
-    {
-        obstacles[i].speed = 1;
-        obstacles[i].power = 5 + level * 5;
-        obstacles[i].score = 5;
-    }
-    else if (obstacles[i].type == LION)
-    {
-        obstacles[i].speed = 4;
-        obstacles[i].power = 15 + level * 5;
-        obstacles[i].score = 11;
-    }
-    else if (obstacles[i].type == ROLLINGTORT)
-    {
-        obstacles[i].speed = 2;
-        obstacles[i].power = 6 + level * 5;
-        obstacles[i].score = 6;
-    }
-    else if (obstacles[i].type >= HOOK1 && obstacles[i].type <= HOOK2)
-    {
-        obstacles[i].speed = 0;
-        obstacles[i].power = 21 + level * 5;
-        obstacles[i].y = 0;
-        obstacles[i].score = 12;
-    }
-}
-
-//碰撞检测
-void checkHit()
-{
-    for (int i = 0; i < OBSTACLE_COUNT; i++)
-    {
-        if (obstacles[i].ifExist && !obstacles[i].ifhited)
-        {
-            MyTriangle HeroLegs;
-            MyRectangle HeroBody, ObstacleBody;
-            int a2x, a2y;//角色的身体矩形坐标信息
-            if (!ifHeroSquating && !isHeroJumping)//奔跑的检测
-            {
-                HeroBody.x = heroX + 119;
-                HeroBody.y = heroY + 38;
-                heroX + imgHeros[i].getwidth() - 50;
-                heroY + imgHeros[i].getheight() - 75;
-                HeroBody.width = a2x - HeroBody.x;
-                HeroBody.height = a2y - HeroBody.y;
-                //以上是身体部分的矩形计算
-                //由于三角的坐标可以直接使用heroX和heroY的相对位置，我们直接用就好
-
-                HeroLegs.x1 = heroX + heroLegsL[heroIndex][0];
-                HeroLegs.y1 = heroY + heroLegsL[heroIndex][1];
-                HeroLegs.x2 = heroX + heroLegsL[heroIndex][2];
-                HeroLegs.y2 = heroY + heroLegsL[heroIndex][3];
-                HeroLegs.x3 = heroX + heroLegsL[heroIndex][4];
-                HeroLegs.y3 = heroY + heroLegsL[heroIndex][5];
-
-            }
-            if ((isHeroJumping || !isHeroGrounded) && !ifHeroSquating)//在跳
-            {
-                HeroBody.x = heroX + 91;
-                HeroBody.y = heroY + 26;
-                heroX + imgHeros[i].getwidth() - 41;
-                heroY + imgHeros[i].getheight() - 74;
-                HeroBody.width = a2x - HeroBody.x;
-                HeroBody.height = a2y - HeroBody.y;
-
-                HeroLegs.x1 = heroX + heroLegsL[heroIndex][0];
-                HeroLegs.y1 = heroY + heroLegsL[heroIndex][1];
-                HeroLegs.x2 = heroX + heroLegsL[heroIndex][2];
-                HeroLegs.y2 = heroY + heroLegsL[heroIndex][3];
-                HeroLegs.x3 = heroX + heroLegsL[heroIndex][4];
-                HeroLegs.y3 = heroY + heroLegsL[heroIndex][5];
-            }
-            if (ifHeroSquating)//按了S键
-            {
-                HeroBody.x = squatX + 5;
-                HeroBody.y = squatY + 3;
-                squatX + imgHeroSquat[squatImgNumbers - 1].getwidth() - 10;
-                squatY + imgHeroSquat[squatImgNumbers - 1].getheight() - 6;
-                HeroBody.width = a2x - HeroBody.x;
-                HeroBody.height = a2y - HeroBody.y;
-            }
-            //障碍物的矩形坐标信息
-            IMAGE img = obstacleImgs[obstacles[i].type][obstacles[i].imgIndex];
-            int b1x = obstacles[i].x + 5;
-            int b1y = obstacles[i].y + 5;
-            int b2x = obstacles[i].x + img.getwidth() - 5;
-            int b2y = obstacles[i].y + img.getheight();
-            ObstacleBody.x = b1x;
-            ObstacleBody.y = b1y;
-            ObstacleBody.width = b2x - b1x;
-            ObstacleBody.height = b2y - b1y;
-
-            if (checkRectangleCollision(HeroBody, ObstacleBody))//记得添加“或者腿部碰撞”
-            {
-                HP -= obstacles[i].power;
-                obstacles[i].ifhited = true;
-                if (HP > 0)
-                {
-                    mciSendString("play res/hit.mp3", nullptr, 0, nullptr);
-                }
-            }
-            if (!ifHeroSquating && checkTriangleRectangleCollision(HeroLegs, ObstacleBody))
-            {
-                HP -= obstacles[i].power;
-                obstacles[i].ifhited = true;
-                if (HP > 0)
-                {
-                    mciSendString("play res/hit.mp3", nullptr, 0, nullptr);
-                }
-            }
-        }
-    }
-}
-
-//加分检测
-void checkScore()
-{
-    for (auto& obstacle : obstacles)
-    {
-        if (obstacle.ifExist && !obstacle.ifpassed && !obstacle.ifhited)
-        {
-            if (obstacle.x + obstacleImgs[obstacle.type][0].getwidth() < heroX)
-            {
-                SCORE += obstacle.score;
-                maxScore += obstacle.score;
-                obstacle.ifpassed = true;
-            }
-        }
-        if (SCORE >= 100)
-        {
-            SCORE = 0;
-            level++;
-            ifAdded = false;
-        }
-        if (level >= 0 && !ifAdded)
-        {
-            for (int& j : bgflySpeed)
-            {
-                EnemyFre0 -= (level * 3);
-                if (EnemyFre0 <= 25) EnemyFre0 = 25;
-                EnemyFre1 -= (level * 2);
-                if (EnemyFre1 < 30) EnemyFre1 = 30;
-                j += level;
-            }
-            ifAdded = true;
-        }
-    }
-}
-
-//渲染游戏背景
-void updateBackGroud()
-{
-    putimagePNG2(bgX[0], 0, &imgBackgroud[0]);
-    putimagePNG2(bgX[1], 119, &imgBackgroud[1]);
-    putimagePNG2(bgX[2], 330, &imgBackgroud[2]);
-    putimagePNG2(bgX[3], 0, &imgBackgroud[3]);
-}
-
-//玩家一的跳跃
-void hero1jump()
-{
-    if (isHeroGrounded)
-    {
-        isHeroJumping = true;
-        isHeroGrounded = false;        // 从地面脱离
-        jumpSpeed = JUMP_INIT_SPEED;   // 设置初始跳跃速度
-        heroIndex = 18;//芙宁娜的初始化
-    }
-}
-
-//下蹲
-void squat()
-{
-    ifHeroSquating = true;
-    heroIndex = 0;
-}
-
 //检测玩家是否需要中途退出
 void ifWannaExit()
 {
@@ -488,291 +270,506 @@ void ifWannaExit()
     }
 }
 
+//时间函数，获取时间的最后两位，毫秒级，大大增加了随机性
+int time_interval()
+{
+	struct timeb tv {};
+	struct tm* t;
+
+	ftime(&tv);
+
+	time_t now = tv.time;
+	t = localtime(&now);
+	if (t == nullptr) {
+		perror("localtime");
+		return -1;
+	}
+
+	//printf("time_now: %d-%d-%d %d:%d:%d.%d\n", 1900+t->tm_year, 1+t->tm_mon, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec, tv.millitm);
+	return tv.millitm % 100;
+}
+
+//生成障碍物，写这个函数的时候对整个代码都已经比较熟悉了，没怎么写注释
+void createObstacle()
+{
+	int i;
+	for (i = 0; i < OBSTACLE_COUNT; i++)
+	{
+		if (obstacles[i].ifExist == false)
+		{
+			break;
+		}
+	}
+	if (i >= OBSTACLE_COUNT) return;
+
+	obstacles[i].ifExist = true;
+	obstacles[i].ifhited = false;
+	obstacles[i].ifpassed = false;
+	obstacles[i].imgIndex = 0;
+	if (randomIndex >= RandomNumbersMax) randomIndex = 0;
+	random[randomIndex] = time_interval();
+	obstacles[i].type = (obstacle_type)(random[randomIndex++] % (OBSTACLE_TYPE_COUNT - 0));//把多个柱子放到一起，不然柱子的出现概率会过大
+	obstacles[i].x = WIN_WIDTH;
+	obstacles[i].y = 360 - obstacleImgs[obstacles[i].type][0].getheight();
+	if (obstacles[i].type == TORTOISE)
+	{
+		obstacles[i].speed = 1;
+		obstacles[i].power = 5 + level * 5;
+		obstacles[i].score = 5;
+	}
+	else if (obstacles[i].type == LION)
+	{
+		obstacles[i].speed = 4;
+		obstacles[i].power = 15 + level * 5;
+		obstacles[i].score = 11;
+	}
+	else if (obstacles[i].type == ROLLINGTORT)
+	{
+		obstacles[i].speed = 2;
+		obstacles[i].power = 6 + level * 5;
+		obstacles[i].score = 6;
+	}
+	else if (obstacles[i].type >= HOOK1 && obstacles[i].type <= HOOK2)
+	{
+		obstacles[i].speed = 0;
+		obstacles[i].power = 21 + level * 5;
+		obstacles[i].y = 0;
+		obstacles[i].score = 12;
+	}
+}
+
+//碰撞检测
+void checkHit()
+{
+	for (int i = 0; i < OBSTACLE_COUNT; i++)
+	{
+		if (obstacles[i].ifExist && !obstacles[i].ifhited)
+		{
+			MyTriangle HeroLegs;
+			MyRectangle HeroBody, ObstacleBody;
+			int a1x, a1y, a2x, a2y;//角色的身体矩形坐标信息
+			if (!ifHeroSquating && !isHeroJumping)//奔跑的检测
+			{
+				HeroBody.x = heroX + 119;
+				HeroBody.y = heroY + 38;
+				a2x = heroX + imgHeros[i].getwidth() - 50;
+				a2y = heroY + imgHeros[i].getheight() - 75;
+				HeroBody.width = a2x - HeroBody.x;
+				HeroBody.height = a2y - HeroBody.y;
+				//以上是身体部分的矩形计算
+				//由于三角的坐标可以直接使用heroX和heroY的相对位置，我们直接用就好
+
+				HeroLegs.x1 = heroX + heroLegsL[heroIndex][0];
+				HeroLegs.y1 = heroY + heroLegsL[heroIndex][1];
+				HeroLegs.x2 = heroX + heroLegsL[heroIndex][2];
+				HeroLegs.y2 = heroY + heroLegsL[heroIndex][3];
+				HeroLegs.x3 = heroX + heroLegsL[heroIndex][4];
+				HeroLegs.y3 = heroY + heroLegsL[heroIndex][5];
+
+			}
+			if ((isHeroJumping || !isHeroGrounded) && !ifHeroSquating)//在跳
+			{
+				HeroBody.x = heroX + 91;
+				HeroBody.y = heroY + 26;
+				a2x = heroX + imgHeros[i].getwidth() - 41;
+				a2y = heroY + imgHeros[i].getheight() - 74;
+				HeroBody.width = a2x - HeroBody.x;
+				HeroBody.height = a2y - HeroBody.y;
+
+				HeroLegs.x1 = heroX + heroLegsL[heroIndex][0];
+				HeroLegs.y1 = heroY + heroLegsL[heroIndex][1];
+				HeroLegs.x2 = heroX + heroLegsL[heroIndex][2];
+				HeroLegs.y2 = heroY + heroLegsL[heroIndex][3];
+				HeroLegs.x3 = heroX + heroLegsL[heroIndex][4];
+				HeroLegs.y3 = heroY + heroLegsL[heroIndex][5];
+			}
+			if (ifHeroSquating)//按了S键
+			{
+				HeroBody.x = squatX + 5;
+				HeroBody.y = squatY + 3;
+				a2x = squatX + imgHeroSquat[squatImgNumbers - 1].getwidth() - 10;
+				a2y = squatY + imgHeroSquat[squatImgNumbers - 1].getheight() - 6;
+				HeroBody.width = a2x - HeroBody.x;
+				HeroBody.height = a2y - HeroBody.y;
+			}
+			//障碍物的矩形坐标信息
+			IMAGE img = obstacleImgs[obstacles[i].type][obstacles[i].imgIndex];
+			int b1x = obstacles[i].x + 5;
+			int b1y = obstacles[i].y + 5;
+			int b2x = obstacles[i].x + img.getwidth() - 5;
+			int b2y = obstacles[i].y + img.getheight();
+			ObstacleBody.x = b1x;
+			ObstacleBody.y = b1y;
+			ObstacleBody.width = b2x - b1x;
+			ObstacleBody.height = b2y - b1y;
+
+			if (checkRectangleCollision(HeroBody, ObstacleBody))//记得添加“或者腿部碰撞”
+			{
+				HP -= obstacles[i].power;
+				obstacles[i].ifhited = true;
+				if (HP > 0)
+				{
+					mciSendString("play res/hit.mp3", 0, 0, 0);
+				}
+			}
+			if (!ifHeroSquating && checkTriangleRectangleCollision(HeroLegs, ObstacleBody))
+			{
+				HP -= obstacles[i].power;
+				obstacles[i].ifhited = true;
+				if (HP > 0)
+				{
+					mciSendString("play res/hit.mp3", 0, 0, 0);
+				}
+			}
+		}
+	}
+}
+
+//加分检测
+void checkScore()
+{
+	for (int i = 0; i < OBSTACLE_COUNT; i++)
+	{
+		if (obstacles[i].ifExist && !obstacles[i].ifpassed && !obstacles[i].ifhited)
+		{
+			if (obstacles[i].x + obstacleImgs[obstacles[i].type][0].getwidth() < heroX)
+			{
+				SCORE += obstacles[i].score;
+				maxScore += obstacles[i].score;
+				obstacles[i].ifpassed = true;
+				//printf("%d\n", SCORE);
+			}
+		}
+		if (SCORE >= 100)
+		{
+			SCORE = 0;
+			level++;
+			ifAdded = false;
+		}
+		if (level >= 0 && !ifAdded)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				EnemyFre0 -= (level * 3);
+				if (EnemyFre0 <= 25) EnemyFre0 = 25;
+				EnemyFre1 -= (level * 2);
+				if (EnemyFre1 < 30) EnemyFre1 = 30;
+				bgflySpeed[j] += level;
+			}
+			ifAdded = true;
+		}
+	}
+}
+
+//渲染游戏背景
+void updateBackGroud()
+{
+	putimagePNG2(bgX[0], 0, &imgBackgroud[0]);
+	putimagePNG2(bgX[1], 119, &imgBackgroud[1]);
+	putimagePNG2(bgX[2], 330, &imgBackgroud[2]);
+	putimagePNG2(bgX[3], 0, &imgBackgroud[3]);
+}
+
+//玩家一的跳跃
+void hero1jump()
+{
+	if (isHeroGrounded)
+	{
+		isHeroJumping = true;
+		isHeroGrounded = false;        // 从地面脱离
+		jumpSpeed = JUMP_INIT_SPEED;   // 设置初始跳跃速度
+		heroIndex = 18;//芙宁娜的初始化
+	}
+}
+
+//下蹲
+void squat()
+{
+	ifHeroSquating = true;
+	heroIndex = 0;
+}
+
 //接收输入
 void keyEvent()
 {
-    //玩家一的按键事件
-    bool keyWPressed = (GetAsyncKeyState('W') & 0x8000) != 0;  // 玩家一上移
-    bool keyAPressed = (GetAsyncKeyState('A') & 0x8000) != 0;  // 玩家一左移
-    bool keySPressed = (GetAsyncKeyState('S') & 0x8000) != 0;  // 玩家一下移
-    bool keyDPressed = (GetAsyncKeyState('D') & 0x8000) != 0;  // 玩家一右移
+	//玩家一的按键事件
+	bool keyWPressed = (GetAsyncKeyState('W') & 0x8000) != 0;  // 玩家一上移
+	bool keyAPressed = (GetAsyncKeyState('A') & 0x8000) != 0;  // 玩家一左移
+	bool keySPressed = (GetAsyncKeyState('S') & 0x8000) != 0;  // 玩家一下移
+	bool keyDPressed = (GetAsyncKeyState('D') & 0x8000) != 0;  // 玩家一右移
 
-    //其他按键
-    bool keyEscPressed = (GetAsyncKeyState(VK_ESCAPE) & 0x8000) != 0;//Esc退出键
-    bool keyPPressed = (GetAsyncKeyState('P') & 0x8000) != 0;
+	//其他按键
+	bool keyEscPressed = (GetAsyncKeyState(VK_ESCAPE) & 0x8000) != 0;//Esc退出键
+	bool keyPPressed = (GetAsyncKeyState('P') & 0x8000) != 0;
 
-    // 判断输入
-    if (keyWPressed && !isHeroJumping && !keySProcessed)
-    {
-        hero1jump();
-        ifupdate = true;//可以刷新了
-    }
-    if (keyEscPressed)
-    {
-        ifWannaExit();
-    }
-    if (keyAPressed)
-    {
-        heroLeft = true;
-    }
-    if (keyDPressed)
-    {
-        heroRight = true;
-    }
+	// 判断输入
+	if (keyWPressed && !isHeroJumping && !keySProcessed)
+	{
+		hero1jump();
+		ifupdate = true;//可以刷新了
+	}
+	if (keyEscPressed)
+	{
+		ifWannaExit();
+	}
+	if (keyAPressed)
+	{
+		heroLeft = true;
+	}
+	if (keyDPressed)
+	{
+		heroRight = true;
+	}
 
-    //下面是检测P键的按下，由于GetAsyncKeyState函数仅检测单次按键状态，所以按下和弹起都是true，所以要加一个keyProcessed来判断按下和弹起
-    if (keyPPressed && !keyPProcessed)
-    {
-        // 当P键被按下且之前未处理时，切换暂停状态
-        ifPause = !ifPause;
-        keyPProcessed = true;  // 标记为已处理
-    }
-    else if (!keyPPressed && keyPProcessed)
-    {
-        // 当P键被释放且之前已处理时，重置处理标志
-        keyPProcessed = false;
-    }
+	//下面是检测P键的按下，由于GetAsyncKeyState函数仅检测单次按键状态，所以按下和弹起都是true，所以要加一个keyProcessed来判断按下和弹起
+	if (keyPPressed && !keyPProcessed)
+	{
+		// 当P键被按下且之前未处理时，切换暂停状态
+		ifPause = !ifPause;
+		keyPProcessed = true;  // 标记为已处理
+	}
+	else if (!keyPPressed && keyPProcessed)
+	{
+		// 当P键被释放且之前已处理时，重置处理标志
+		keyPProcessed = false;
+	}
 
-    //下面是检测S键的按下，理由与P键一样
-    if (keySPressed && !keySProcessed)
-    {
-        // 当P键被按下且之前未处理时，切换暂停状态
-        squat();
-        keySProcessed = true;  // 标记为已处理
-    }
-    else if (!keySPressed && keySProcessed)
-    {
-        // 当P键被释放且之前已处理时，重置处理标志
-        ifHeroSquating = !ifHeroSquating;
-        keySProcessed = false;
-    }
+	//下面是检测S键的按下，理由与P键一样
+	if (keySPressed && !keySProcessed)
+	{
+		// 当P键被按下且之前未处理时，切换暂停状态
+		squat();
+		keySProcessed = true;  // 标记为已处理
+	}
+	else if (!keySPressed && keySProcessed)
+	{
+		// 当P键被释放且之前已处理时，重置处理标志
+		ifHeroSquating = !ifHeroSquating;
+		keySProcessed = false;
+	}
 }
 
 //更新敌方
 void updateEnemy()
 {
-    //更新障碍物
-    for (auto& obstacle : obstacles)
-    {
-        if (obstacle.ifExist)
-        {
-            putimagePNG2(obstacle.x, obstacle.y, WIN_WIDTH, &obstacleImgs[obstacle.type][obstacle.imgIndex]);
-        }
-    }
+	//更新障碍物
+	for (int i = 0; i < OBSTACLE_COUNT; i++)
+	{
+		if (obstacles[i].ifExist)
+		{
+			putimagePNG2(obstacles[i].x, obstacles[i].y, WIN_WIDTH,
+				&obstacleImgs[obstacles[i].type][obstacles[i].imgIndex]);
+		}
+	}
 }
 
 //更新角色
 void updateHeros()
 {
-    if (!ifHeroSquating)
-    {
-        putimagePNG2(heroX, heroY, &imgHeros[heroIndex]);//输出角色的奔跑和跳跃
-    }
-    if (ifHeroSquating)//复杂的坐标计算，唉，不过蹲下就不需要计算三角形了
-    {
-        if (heroIndex < squatImgNumbers - 6)
-        {
-            putimagePNG2(heroX, heroY, &imgHeros[heroIndex]);
-            putimagePNG2(heroX, heroY, &imgHeroSquat[heroIndex]);
-        }
-        else if (heroIndex < squatImgNumbers - 4)
-        {
-            putimagePNG2(heroX, heroY, &imgHeroSquat[heroIndex]);
-        }
-        else if (heroIndex < squatImgNumbers - 1)
-        {
-            int y = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
-            int x = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[squatImgNumbers - 1].getwidth() * 0.5;
-            int xChannel = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[heroIndex].getwidth() * 0.5;
-            int yChannel = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
-            putimagePNG2(x, y, &imgHeroSquat[squatImgNumbers - 1]);
-            putimagePNG2(xChannel, yChannel, &imgHeroSquat[heroIndex]);
-        }
-        else
-        {
-            int y = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
-            int x = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[heroIndex].getwidth() * 0.5;
-            putimagePNG2(x, y, &imgHeroSquat[heroIndex]);
-            squatX = x;
-            squatY = y;
-        }
-    }
+	if (!ifHeroSquating)
+	{
+		putimagePNG2(heroX, heroY, &imgHeros[heroIndex]);//输出角色的奔跑和跳跃
+	}
+	if (ifHeroSquating)//复杂的坐标计算，唉，不过蹲下就不需要计算三角形了
+	{
+		if (heroIndex < squatImgNumbers - 6)
+		{
+			putimagePNG2(heroX, heroY, &imgHeros[heroIndex]);
+			putimagePNG2(heroX, heroY, &imgHeroSquat[heroIndex]);
+		}
+		else if (heroIndex < squatImgNumbers - 4)
+		{
+			putimagePNG2(heroX, heroY, &imgHeroSquat[heroIndex]);
+		}
+		else if (heroIndex < squatImgNumbers - 1)
+		{
+			int y = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
+			int x = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[squatImgNumbers - 1].getwidth() * 0.5;
+			int xChannel = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[heroIndex].getwidth() * 0.5;
+			int yChannel = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
+			putimagePNG2(x, y, &imgHeroSquat[squatImgNumbers - 1]);
+			putimagePNG2(xChannel, yChannel, &imgHeroSquat[heroIndex]);
+		}
+		else
+		{
+			int y = heroY + imgHeros[heroIndex].getheight() - imgHeroSquat[heroIndex].getheight();
+			int x = heroX + imgHeros[0].getwidth() * 0.5 - imgHeroSquat[heroIndex].getwidth() * 0.5;
+			putimagePNG2(x, y, &imgHeroSquat[heroIndex]);
+			squatX = x;
+			squatY = y;
+		}
+	}
 }
 
 //更新血条和分数条
 void updateBloodBar()
 {
-    drawBloodBar(10, 10, 200, 10, 2, BLUE, DARKGRAY, RED, HP / 100.0);//血条
-    drawBloodBar(10, 30, 200, 10, 2, BLUE, DARKGRAY, YELLOW, SCORE / 100.0);//分数条
+	drawBloodBar(10, 10, 200, 10, 2, BLUE, DARKGRAY, RED, HP / 100.0);//血条
+	drawBloodBar(10, 30, 200, 10, 2, BLUE, DARKGRAY, YELLOW, SCORE / 100.0);//分数条
 
-    //更新分数显示
-    setbkmode(TRANSPARENT);
-    settextcolor(BLACK);
+	//更新分数显示
+	setbkmode(TRANSPARENT);
+	settextcolor(BLACK);
 
-    //当前总分
-    TCHAR strPresentScore[] = _T("当前总分：");
-    outtextxy(WIN_WIDTH + 10, 120, strPresentScore);
-    TCHAR strScore[500];
-    _stprintf(strScore, _T("%d"), maxScore);
-    outtextxy(WIN_WIDTH + 90, 121, strScore);
+	//当前总分
+	TCHAR strPresentScore[] = _T("当前总分：");
+	outtextxy(WIN_WIDTH + 10, 120, strPresentScore);
+	TCHAR strScore[500];
+	_stprintf(strScore, _T("%d"), maxScore);
+	outtextxy(WIN_WIDTH + 90, 121, strScore);
 
-    //历史最高分
-    TCHAR strHistoryMaxScore[] = _T("历史最高分：");
-    outtextxy(WIN_WIDTH + 10, 139, strHistoryMaxScore);
-    TCHAR strScoreRead[500];
-    _stprintf(strScoreRead, _T("%d"), ReadMax);
-    outtextxy(WIN_WIDTH + 102, 140, strScoreRead);
+	//历史最高分
+	TCHAR strHistoryMaxScore[] = _T("历史最高分：");
+	outtextxy(WIN_WIDTH + 10, 139, strHistoryMaxScore);
+	TCHAR strScoreRead[500];
+	_stprintf(strScoreRead, _T("%d"), ReadMax);
+	outtextxy(WIN_WIDTH + 102, 140, strScoreRead);
 
 }
 
 //死亡检测
 void checkHP()
 {
-    if (HP <= 0)
-    {
-        musicIndex = FAILURE;
-        int grade = (maxScore >= ReadMax ? maxScore : ReadMax);
-        WriteGrade(grade);
-        mciSendString("stop res/traveling.mp3", nullptr, 0, nullptr);
+	if (HP <= 0)
+	{
+		int grade = (maxScore >= ReadMax ? maxScore : ReadMax);
+		WriteGrade(grade);
+		mciSendString("stop res/traveling.mp3", 0, 0, 0);
 
-        char name[64] = { 0 };
-        int i = 0, j;
-        int timers = 0;
-        int Tmax = 15;
-        mciSendString("play res/failure.mp3", nullptr, 0, nullptr);
-        while (i < 5446)
-        {
-            keyEvent();//接收输入函数
-            timers += getDelay();//加上底层逻辑基础单位时间
-            if (timers >= Tmax)
-            {
-                timers = 0;
-                sprintf(name, "res/failure/%04d.jpg", i + 1);
-                j = i % 10;//j从0到9
-                loadimage(&imgFailures[j], name);
-                putimage(0, 0, &imgFailures[j]);
-                i++;
-            }
-        }
+		musicIndex = FAILURE;
 
-        mciSendString("stop res/failure.mp3", nullptr, 0, nullptr);
-        MessageBoxA(nullptr, "游戏数据已保存，希望你下次还能更好！", "DailyRunningNG", MB_OK);
-        if (IDYES == MessageBoxA(nullptr, "是否再来一局？", "DailyRunningNG", MB_YESNO))
-        {
-            init();
-        }
-        else
-        {
-            exit(0);
-        }
-    }
+		char name[64] = { 0 };
+		int i = 0, j = 0;
+		int timers = 0;
+		int Tmax = 15;
+		mciSendString("play res/failure.mp3", 0, 0, 0);
+		while (i < 5446)
+		{
+			keyEvent();//接收输入函数
+			timers += getDelay();//加上底层逻辑基础单位时间
+			if (timers >= Tmax)
+			{
+				timers = 0;
+				sprintf(name, "res/failure/%04d.jpg", i + 1);
+				j = i % 10;//j从0到9
+				loadimage(&imgFailures[j], name);
+				putimage(0, 0, &imgFailures[j]);
+				i++;
+			}
+		}
+
+		mciSendString("stop res/failure.mp3", 0, 0, 0);
+		//putimage(0, 0, &imgFailures[0]);
+		ifWannaExit();
+	}
 }
 
 //计算下一帧图片的数据
 void fly()
 {
-    //背景移动
-    for (int i = 0; i < 3; i++)
-    {
-        bgX[i] -= bgflySpeed[i];
-        if (bgX[i] < -WIN_WIDTH)
-            bgX[i] = 0;
-    }
+	//背景移动
+	for (int i = 0; i < 3; i++)
+	{
+		bgX[i] -= bgflySpeed[i];
+		if (bgX[i] < -WIN_WIDTH)
+			bgX[i] = 0;
+	}
 
-    //碰撞检测
-    checkHit();
+	//碰撞检测
+	checkHit();
 
-    //芙宁娜角色变化
-    if (isHeroJumping)//芙宁娜角色跳跃变化
-    {
-        heroIndex++;
-        if (heroIndex > 42) // 这里检查跳跃索引是否超出跳跃动画的范围
-        {
-            heroIndex = 0; // 如果是，则重置为奔跑动画的开始
-        }
-        heroY -= jumpSpeed;                     // 应用跳跃速度
-        jumpSpeed -= GRAVITY;                   // 应用重力加速度
+	//芙宁娜角色变化
+	if (isHeroJumping)//芙宁娜角色跳跃变化
+	{
+		heroIndex++;
+		if (heroIndex > 42) // 这里检查跳跃索引是否超出跳跃动画的范围
+		{
+			heroIndex = 0; // 如果是，则重置为奔跑动画的开始
+		}
+		heroY -= jumpSpeed;                     // 应用跳跃速度
+		jumpSpeed -= GRAVITY;                   // 应用重力加速度
 
-        // 如果英雄触地，则将其状态设置为地面状态
-        if (heroY >= heroFuY0)
-        {
-            heroY = heroFuY0;
-            isHeroJumping = false;
-            isHeroGrounded = true;
-            jumpSpeed = 0;// 重置跳跃速度
-        }//芙宁娜的判定
-        if (heroY >= heroY0)//正常角色判定
-        {
-            heroY = heroY0;
-            isHeroJumping = false;
-            isHeroGrounded = true;
-            jumpSpeed = 0;// 重置跳跃速度
-        }
-    }
-    if (ifHeroSquating)//下蹲
-    {
-        heroIndex++;
-        if (heroIndex >= squatImgNumbers - 1)
-        {
-            heroIndex = squatImgNumbers - 1;
-        }
-    }
-    if (!isHeroJumping && !ifHeroSquating)//没跳没蹲就是在跑
-    {
-        //角色奔跑变化
-        if (heroIndex == fuNumAddfutNum - 1) heroIndex = 0;
-        heroIndex = (heroIndex + 1) % 18;
-    }
-    if (heroLeft && !heroRight && heroX > 0)
-    {
-        heroX -= dist;
-        if (heroX < 0)
-        {
-            heroX += dist;
-        }
-        heroLeft = false;
-    }
-    if (!heroLeft && heroRight)
-    {
-        heroX += dist;
-        if (heroX >= WIN_WIDTH - imgHeros[heroIndex].getwidth())
-        {
-            heroX = WIN_WIDTH - imgHeros[heroIndex].getwidth();
-        }
-        heroRight = false;
-    }
-    if (heroLeft && heroRight)
-    {
-        heroLeft = false;
-        heroRight = false;
-    }
-    //显示障碍物的变化
-    static int frameCount = 0;//定义静态变量扩大障碍物的域
-    static int EnemyFre = 70;//每隔多少帧
+		// 如果英雄触地，则将其状态设置为地面状态
+		if (heroY >= heroFuY0)
+		{
+			heroY = heroFuY0;
+			isHeroJumping = false;
+			isHeroGrounded = true;
+			jumpSpeed = 0;// 重置跳跃速度
+		}//芙宁娜的判定
+		if (heroY >= heroY0)//正常角色判定
+		{
+			heroY = heroY0;
+			isHeroJumping = false;
+			isHeroGrounded = true;
+			jumpSpeed = 0;// 重置跳跃速度
+		}
+	}
+	if (ifHeroSquating)//下蹲
+	{
+		heroIndex++;
+		if (heroIndex >= squatImgNumbers - 1)
+		{
+			heroIndex = squatImgNumbers - 1;
+		}
+	}
+	if (!isHeroJumping && !ifHeroSquating)//没跳没蹲就是在跑
+	{
+		//角色奔跑变化
+		if (heroIndex == fuNumAddfutNum - 1) heroIndex = 0;
+		heroIndex = (heroIndex + 1) % 18;
+	}
+	if (heroLeft && !heroRight && heroX > 0)
+	{
+		heroX -= 5;
+		if (heroX < 0)
+		{
+			heroX += 5;
+		}
+		heroLeft = false;
+	}
+	if (!heroLeft && heroRight)
+	{
+		heroX += 5;
+		if (heroX >= WIN_WIDTH - imgHeros[heroIndex].getwidth())
+		{
+			heroX = WIN_WIDTH - imgHeros[heroIndex].getwidth();
+		}
+		heroRight = false;
+	}
+	if (heroLeft && heroRight)
+	{
+		heroLeft = false;
+		heroRight = false;
+	}
 
-    frameCount++;//数一下这是第几帧
-    if (frameCount > EnemyFre)
-    {
-        frameCount = 0;
-        if (randomIndex >= RandomNumbersMax) randomIndex = 0;
-        random[randomIndex] = time_interval();
-        EnemyFre = EnemyFre0 + random[randomIndex++] % EnemyFre1;
-        createObstacle();
-    }
-    //更新障碍物的坐标
-    for (auto& obstacle : obstacles)
-    {
-        if (obstacle.ifExist)
-        {
-            obstacle.x -= (bgflySpeed[2] + obstacle.speed);
-            if (obstacle.x < -obstacleImgs[obstacle.type][obstacle.imgIndex].getwidth() * 2)
-            {
-                obstacle.ifExist = false;
-            }
-            int len = obstacleImgs[obstacle.type].size();
-            obstacle.imgIndex = (obstacle.imgIndex + 1) % len;
-        }
-    }
+	//显示障碍物的变化
+	static int frameCount = 0;//定义静态变量扩大障碍物的域
+	static int EnemyFre = 70;//每隔多少帧
+
+	frameCount++;//数一下这是第几帧
+	if (frameCount > EnemyFre)
+	{
+		frameCount = 0;
+		if (randomIndex >= RandomNumbersMax) randomIndex = 0;
+		random[randomIndex] = time_interval();
+		EnemyFre = EnemyFre0 + random[randomIndex++] % EnemyFre1;
+		createObstacle();
+	}
+	//更新障碍物的坐标
+	for (int i = 0; i < OBSTACLE_COUNT; i++)
+	{
+		if (obstacles[i].ifExist)
+		{
+			obstacles[i].x -= (bgflySpeed[2] + obstacles[i].speed);
+			if (obstacles[i].x < -obstacleImgs[obstacles[i].type][obstacles[i].imgIndex].getwidth() * 2)
+			{
+				obstacles[i].ifExist = false;
+			}
+			int len = obstacleImgs[obstacles[i].type].size();
+			obstacles[i].imgIndex = (obstacles[i].imgIndex + 1) % len;
+		}
+	}
 }
 
 //游戏初始化
@@ -796,47 +793,47 @@ void init()
         //满足条件则加载检测界面
         //初始音乐
         musicIndex = CHECKING;
-        mciSendString("open res/checking.mp3", nullptr, 0, nullptr);
+		preLoadSound("res/checking.mp3");
         mciSendString("play res/checking.mp3", nullptr, 0, nullptr);
 
         //检查资源完整性
         IMAGE TEMP;
-        
+
         sprintf(tempName, "res/checking.png");
         loadimage(&imgCHECKING, tempName);
         int timers2 = 0;
         int k = 0;
-        //while (k < 5446)
-        //{
-        //    keyEvent();
-        //    timers2 += getDelay();
-        //    if (timers2 >= 11)
-        //    {
-        //        for (int l = 0; l < 23; l++)
-        //        {
-        //            tempName[l] = 0;
-        //        }
-        //        timers2 = 0;
-        //        sprintf(tempName, "res/failure/%04d.jpg", k + 1);
-        //        sprintf(tempName2, "%04d.jpg", k + 1);
-        //        //检测资源
-        //        loadimage(&TEMP, tempName);
-        //        char relativePath[] = ".\\res\\failure";  // 相对路径
-        //        char filename[64] = { 0 };  // 要检查的文件名
-        //        sprintf(filename, "%04d.jpg", k + 1);
-        //        if (!isFileExists(relativePath, filename))
-        //        {
-        //            MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1110Failure", "警告", MB_OK);
-        //            exit(0);
-        //        }
-        //        //检测资源过程中所需要的界面
-        //        BeginBatchDraw();//开始渲染
-        //        putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
-        //        drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
-        //        EndBatchDraw();//结束本次渲染
-        //        k++;
-        //    }
-        //}
+        while (k < 5446)
+        {
+            keyEvent();
+            timers2 += getDelay();
+            if (timers2 >= 11)
+            {
+                for (int l = 0; l < 23; l++)
+                {
+                    tempName[l] = 0;
+                }
+                timers2 = 0;
+                sprintf(tempName, "res/failure/%04d.jpg", k + 1);
+                sprintf(tempName2, "%04d.jpg", k + 1);
+                //检测资源
+                loadimage(&TEMP, tempName);
+                char relativePath[] = ".\\res\\failure";  // 相对路径
+                char filename[64] = { 0 };  // 要检查的文件名
+                sprintf(filename, "%04d.jpg", k + 1);
+                if (!isFileExists(relativePath, filename))
+                {
+                    MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1110Failure", "警告", MB_OK);
+                    exit(0);
+                }
+                //检测资源过程中所需要的界面
+                BeginBatchDraw();//开始渲染
+                putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
+                drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
+                EndBatchDraw();//结束本次渲染
+                k++;
+            }
+        }
 
         mciSendString("stop res/checking.mp3", nullptr, 0, nullptr);
     }
@@ -989,10 +986,9 @@ void init()
     EnemyFre1 = 51;
 
     //预加载音效
-    /*preLoadSound("res/hit.mp3");
-    preLoadSound("res/failure.mp3");*/
-    mciSendString("open res/hit.mp3", nullptr, 0, nullptr);
-    mciSendString("open res/failure.mp3", nullptr, 0, nullptr);
+    preLoadSound("res/hit.mp3");
+    preLoadSound("res/failure.mp3");
+
     cleardevice(); // 清空屏幕内容
     //开始游戏
     sprintf(tempName, "res/start.png");
