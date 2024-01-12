@@ -610,11 +610,15 @@ void updateBloodBar()
     settextcolor(BLACK);
 
     //当前总分
+    TCHAR strPresentScore[] = _T("当前总分：");
+    outtextxy(WIN_WIDTH + 10, 120, strPresentScore);
     TCHAR strScore[500];
     _stprintf(strScore, _T("%d"), maxScore);
     outtextxy(WIN_WIDTH + 90, 121, strScore);
 
     //历史最高分
+    TCHAR strHistoryMaxScore[] = _T("历史最高分：");
+    outtextxy(WIN_WIDTH + 10, 139, strHistoryMaxScore);
     TCHAR strScoreRead[500];
     _stprintf(strScoreRead, _T("%d"), ReadMax);
     outtextxy(WIN_WIDTH + 102, 140, strScoreRead);
@@ -802,37 +806,37 @@ void init()
         loadimage(&imgCHECKING, tempName);
         int timers2 = 0;
         int k = 0;
-        while (k < 5446)
-        {
-            keyEvent();
-            timers2 += getDelay();
-            if (timers2 >= 11)
-            {
-                for (int l = 0; l < 23; l++)
-                {
-                    tempName[l] = 0;
-                }
-                timers2 = 0;
-                sprintf(tempName, "res/failure/%04d.jpg", k + 1);
-                sprintf(tempName2, "%04d.jpg", k + 1);
-                //检测资源
-                loadimage(&TEMP, tempName);
-                char relativePath[] = ".\\res\\failure";  // 相对路径
-                char filename[64] = { 0 };  // 要检查的文件名
-                sprintf(filename, "%04d.jpg", k + 1);
-                if (!isFileExists(relativePath, filename))
-                {
-                    MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1110Failure", "警告", MB_OK);
-                    exit(0);
-                }
-                //检测资源过程中所需要的界面
-                BeginBatchDraw();//开始渲染
-                putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
-                drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
-                EndBatchDraw();//结束本次渲染
-                k++;
-            }
-        }
+        //while (k < 5446)
+        //{
+        //    keyEvent();
+        //    timers2 += getDelay();
+        //    if (timers2 >= 11)
+        //    {
+        //        for (int l = 0; l < 23; l++)
+        //        {
+        //            tempName[l] = 0;
+        //        }
+        //        timers2 = 0;
+        //        sprintf(tempName, "res/failure/%04d.jpg", k + 1);
+        //        sprintf(tempName2, "%04d.jpg", k + 1);
+        //        //检测资源
+        //        loadimage(&TEMP, tempName);
+        //        char relativePath[] = ".\\res\\failure";  // 相对路径
+        //        char filename[64] = { 0 };  // 要检查的文件名
+        //        sprintf(filename, "%04d.jpg", k + 1);
+        //        if (!isFileExists(relativePath, filename))
+        //        {
+        //            MessageBoxA(nullptr, "资源加载错误！请联系管理员检查资源完整性！错误码：0x1110Failure", "警告", MB_OK);
+        //            exit(0);
+        //        }
+        //        //检测资源过程中所需要的界面
+        //        BeginBatchDraw();//开始渲染
+        //        putimage((WIN_WIDTH + 196) / 2.0 - imgCHECKING.getwidth() / 2.0, WIN_HEIGHT - 100, &imgCHECKING);
+        //        drawBloodBar((WIN_WIDTH + 196) / 2.0 - 200, WIN_HEIGHT - 70, 400, 5, 2, BLACK, DARKGRAY, WHITE, k / 5446.0);
+        //        EndBatchDraw();//结束本次渲染
+        //        k++;
+        //    }
+        //}
 
         mciSendString("stop res/checking.mp3", nullptr, 0, nullptr);
     }
@@ -1008,6 +1012,24 @@ void init()
     mciSendString("open res/beginning.mp3", nullptr, 0, nullptr);
     mciSendString("play res/beginning.mp3", nullptr, 0, nullptr);
     //。。。。
+
+    cleardevice(); // 清空屏幕内容
+    //开始游戏
+    IMAGE imgSTARTING1;
+    IMAGE imgSTARTING2;
+    sprintf(tempName, "res/开始游戏.png");
+    loadimage(&imgSTARTING1, tempName);
+    sprintf(tempName, "res/开始游戏-NULL.png");
+    loadimage(&imgSTARTING2, tempName);
+
+    for (int i = 0; i < 200; i++)
+    {
+        BeginBatchDraw();//开始渲染
+        putimagePNG2((WIN_WIDTH + 196) / 2.0 - imgSTARTING1.getwidth() / 2.0, WIN_HEIGHT - imgSTARTING1.getheight(), &imgSTARTING1);
+        EndBatchDraw();//结束本次渲染
+        Sleep(10);
+    }
+
 
     //真的开始啦
     musicIndex = TRAVELING;
